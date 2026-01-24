@@ -1,5 +1,4 @@
 import { STAFF_AVAILABILITY } from "@/constant/staff-availability.constant";
-import { STAFF_TYPE_VALUES } from "@/constant/staff-types.constant";
 import { model, models, Schema } from "mongoose";
 
 const staffSchema = new Schema(
@@ -11,7 +10,6 @@ const staffSchema = new Schema(
     },
     staffType: {
       type: String,
-      enum: STAFF_TYPE_VALUES,
       required: true,
     },
     dailyCapacity: {

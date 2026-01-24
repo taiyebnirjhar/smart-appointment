@@ -6,8 +6,8 @@ import jwt from "jsonwebtoken";
 export function generateToken(payload: any, type: "access" | "refresh") {
   const expiresIn =
     type === "access"
-      ? envConfig.jwt.accessTokenExpiresIn
-      : envConfig.jwt.refreshTokenExpiresIn;
+      ? envConfig.jwt.accessTokenExpiresIn.trim()
+      : envConfig.jwt.refreshTokenExpiresIn.trim();
 
   return jwt.sign(payload, envConfig.jwt.secret, {
     expiresIn: expiresIn as any,

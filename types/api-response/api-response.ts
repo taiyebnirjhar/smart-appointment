@@ -1,6 +1,4 @@
-import { SERVICE_DURATIONS } from "@/constant/service-duration.constant";
 import { STAFF_AVAILABILITY } from "@/constant/staff-availability.constant";
-import { StaffType } from "../static-types/static-types";
 
 export interface IOrganization {
   _id: string;
@@ -23,21 +21,19 @@ export interface IStaff {
   _id: string;
   orgId: string;
   name: string;
-  staffType: StaffType;
+  staffType: string;
   dailyCapacity: number;
   availabilityStatus: StaffAvailability;
   createdAt: string;
   updatedAt: string;
 }
 
-export type ServiceDuration = (typeof SERVICE_DURATIONS)[number];
-
 export interface IService {
   _id: string;
   orgId: string;
   name: string;
-  durationMinutes: ServiceDuration;
-  requiredStaffType: StaffType;
+  durationMinutes: number;
+  requiredStaffType: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -66,7 +62,7 @@ export interface IWaitingQueueItem {
   _id: string;
   orgId: string;
   appointmentId: string;
-  requiredStaffType: StaffType;
+  requiredStaffType: string;
   appointmentTime: string;
   queuePosition: number;
   createdAt: string;

@@ -1,6 +1,4 @@
-import { StaffType } from "@/types/static-types/static-types";
-
-export const STAFF_TYPES: { label: string; value: StaffType }[] = [
+export const STAFF_TYPES: { label: string; value: string }[] = [
   { label: "Doctor", value: "Doctor" },
   { label: "Consultant", value: "Consultant" },
   { label: "Support", value: "Support" },
@@ -28,5 +26,3 @@ export const STAFF_TYPES: { label: string; value: StaffType }[] = [
   { label: "Director", value: "Director" },
   { label: "Other", value: "Other" },
 ];
-
-export const STAFF_TYPE_VALUES = STAFF_TYPES.map((t) => t.value);

@@ -9,8 +9,3 @@ export const SERVICE_DURATION_OPTIONS = SERVICE_DURATIONS.map((minutes) => ({
       ? `${minutes} min`
       : `${minutes / 60} hr${minutes % 60 ? ` ${minutes % 60} min` : ""}`,
 }));
-
-export const SERVICE_DURATIONS_STR = SERVICE_DURATIONS.map(String) as [
-  string,
-  ...string[],
-];
