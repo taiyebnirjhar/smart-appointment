@@ -1,4 +1,6 @@
+import { APPOINTMENT_STATUS } from "@/constant/appointment-status.constant";
 import { STAFF_AVAILABILITY } from "@/constant/staff-availability.constant";
+import { WAITING_QUEUE_STATUS } from "@/constant/waiting-queue-status";
 
 export interface IOrganization {
   _id: string;
@@ -38,12 +40,7 @@ export interface IService {
   updatedAt: string;
 }
 
-export type AppointmentStatus =
-  | "SCHEDULED"
-  | "COMPLETED"
-  | "CANCELLED"
-  | "NO_SHOW"
-  | "WAITING";
+export type AppointmentStatus = (typeof APPOINTMENT_STATUS)[number];
 
 export interface IAppointment {
   _id: string;
@@ -58,14 +55,18 @@ export interface IAppointment {
   updatedAt: string;
 }
 
+export type WaitingQueueStatus = (typeof WAITING_QUEUE_STATUS)[number];
+
 export interface IWaitingQueueItem {
   _id: string;
   orgId: string;
-  appointmentId: string;
-  requiredStaffType: string;
-  appointmentTime: string;
-  queuePosition: number;
+  customerName: string;
+  serviceId: string;
+  startTime: string;
+  endTime: string;
+  status: WaitingQueueStatus;
   createdAt: string;
+  updatedAt: string;
 }
 
 export type ActivityAction =
@@ -83,13 +84,15 @@ export interface IActivityLog {
   appointmentId?: string;
   staffId?: string;
   createdAt: string;
+  updatedAt: string;
 }
 
 export interface IStaffLoadSummary {
   staffId: string;
-  name: string;
-  used: number;
-  capacity: number;
+  dailyCapacity: number;
+  currentTaskCount: number;
+  isFull: boolean;
+  displayBadge: string;
 }
 
 export interface IDashboardStats {

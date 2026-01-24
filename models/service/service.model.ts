@@ -1,4 +1,3 @@
-import { SERVICE_DURATIONS } from "@/constant/service-duration.constant";
 import mongoose, { models, Schema } from "mongoose";
 
 const serviceSchema = new Schema(
@@ -11,7 +10,7 @@ const serviceSchema = new Schema(
     durationMinutes: {
       type: Number,
       required: true,
-      enum: SERVICE_DURATIONS,
+      min: 1,
     },
     requiredStaffType: {
       type: String,
