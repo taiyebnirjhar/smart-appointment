@@ -16,7 +16,7 @@ export interface AuthenticatedRequest extends Request {
   user: AuthenticatedUser;
 }
 export interface RouteContext<TParams = any> {
-  params?: TParams;
+  params: Promise<TParams>;
 }
 
 /**

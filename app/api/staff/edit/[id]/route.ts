@@ -8,7 +8,7 @@ import { NextResponse } from "next/server";
 export const PATCH = withOrgAuth<{ id: string }>(
   async (req: AuthenticatedRequest, { params }) => {
     try {
-      const { id } = await params!;
+      const { id } = await params;
 
       const body = await req.json();
       const data = updateStaffSchema.parse(body);

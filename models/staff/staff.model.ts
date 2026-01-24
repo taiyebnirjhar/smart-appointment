@@ -10,7 +10,8 @@ const staffSchema = new Schema(
       trim: true,
     },
     staffType: {
-      type: STAFF_TYPE_VALUES,
+      type: String,
+      enum: STAFF_TYPE_VALUES,
       required: true,
     },
     dailyCapacity: {

@@ -11,7 +11,7 @@ import { NextResponse } from "next/server";
 export const GET = withOrgAuth<{ id: string }>(
   async (req: AuthenticatedRequest, { params }) => {
     try {
-      const { id } = await params!;
+      const { id } = await params;
 
       await connectDB();
 
