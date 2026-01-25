@@ -12,7 +12,7 @@ import {
 import { MoreHorizontal } from "lucide-react";
 
 import { DeleteAlert } from "@/components/shared/alert/delete-alert";
-import { useDeleteStaffMutation } from "@/redux/api/staff/staff.api";
+import { useDeleteAppointmentMutation } from "@/redux/api/appointment/appointment.api";
 import Link from "next/link";
 import React from "react";
 
@@ -22,11 +22,11 @@ interface DataTableRowActionsProps {
 
 export function DataTableRowActions({ row }: DataTableRowActionsProps) {
   const [open, setOpen] = React.useState(false);
-  const [deleteStaff] = useDeleteStaffMutation();
+  const [deleteAppointment] = useDeleteAppointmentMutation();
 
   const handleDelete = async () => {
     const id = row.original._id;
-    await deleteStaff({
+    await deleteAppointment({
       id,
     });
   };
@@ -41,7 +41,9 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="z-40">
         <DropdownMenuItem>
-          <Link href={`/staff/edit/${row.original._id}`}>View & Edit</Link>
+          <Link href={`/appointment/edit/${row.original._id}`}>
+            View & Edit
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DeleteAlert onConfirm={handleDelete}>

@@ -10,6 +10,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
@@ -19,41 +20,53 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { SERVICE_DURATION_OPTIONS } from "@/constant/service-duration.constant";
-import {
-  STAFF_AVAILABILITY,
-  STAFF_AVAILABILITY_LABEL,
-} from "@/constant/staff-availability.constant";
-import { STAFF_TYPES } from "@/constant/staff-types.constant";
+import { IService, IStaff } from "@/types/api-response/api-response";
 import { useRouter } from "next/navigation";
 import { UseFormReturn } from "react-hook-form";
 
 interface FormComponentProps {
   form: UseFormReturn<
     {
-      name: string;
-      staffType: string;
-      dailyCapacity: number;
-      availabilityStatus: "AVAILABLE" | "ON_LEAVE";
+      customerName: string;
+      serviceId: string;
+      startTime: string;
+      staffId?: string | null | undefined;
+      status?:
+        | "SCHEDULED"
+        | "IN_PROGRESS"
+        | "COMPLETED"
+        | "CANCELLED"
+        | "NO_SHOW"
+        | undefined;
     },
     any,
     {
-      name: string;
-      staffType: string;
-      dailyCapacity: number;
-      availabilityStatus: "AVAILABLE" | "ON_LEAVE";
+      customerName: string;
+      serviceId: string;
+      startTime: string;
+      staffId?: string | null | undefined;
+      status?:
+        | "SCHEDULED"
+        | "IN_PROGRESS"
+        | "COMPLETED"
+        | "CANCELLED"
+        | "NO_SHOW"
+        | undefined;
     }
   >;
   onSubmit: (data: any) => void;
 
   isLoading: boolean;
+  services: Partial<IService>[];
+  staffs: Partial<IStaff>[];
 }
 
 export default function FormComponent({
   form,
   onSubmit,
-
   isLoading,
+  services = [],
+  staffs = [],
 }: FormComponentProps) {
   const router = useRouter();
   return (
@@ -62,11 +75,11 @@ export default function FormComponent({
         <div className="grid gap-6 md:grid-cols-2">
           <FormField
             control={form.control}
-            name="name"
+            name="customerName"
             render={({ field }) => (
               <FormItem className="col-span-2">
                 <FormLabel>
-                  Name <span className="text-red-500">*</span>
+                  Customer Name <span className="text-red-500">*</span>
                 </FormLabel>
                 <FormControl>
                   <Input
@@ -82,11 +95,11 @@ export default function FormComponent({
 
           <FormField
             control={form.control}
-            name="staffType"
+            name="serviceId"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  Staff Type <span className="text-red-500">*</span>
+                  Service <span className="text-red-500">*</span>
                 </FormLabel>
                 <FormControl>
                   <Select
@@ -97,19 +110,19 @@ export default function FormComponent({
                   >
                     <SelectTrigger className="w-full col-span-2 capitalize">
                       <SelectValue
-                        placeholder="Select Staff Type"
+                        placeholder="Select Service"
                         className="w-full capitalize"
                       />
                     </SelectTrigger>
 
                     <SelectContent>
-                      {STAFF_TYPES.map((item) => (
+                      {services.map((item) => (
                         <SelectItem
                           className="capitalize"
-                          key={item.value}
-                          value={item.value}
+                          key={item._id}
+                          value={item._id ?? ""}
                         >
-                          {item.label}
+                          {item.name}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -121,34 +134,34 @@ export default function FormComponent({
 
           <FormField
             control={form.control}
-            name="availabilityStatus"
+            name="staffId"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  Availability Status <span className="text-red-500">*</span>
+                  Staff <span className="text-red-500">*</span>
                 </FormLabel>
                 <FormControl>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    defaultValue={field.value ?? ""}
                     key={field.value}
                     disabled={isLoading}
                   >
                     <SelectTrigger className="w-full col-span-2 capitalize">
                       <SelectValue
-                        placeholder="Select Staff Type"
+                        placeholder="Select Staff"
                         className="w-full capitalize"
                       />
                     </SelectTrigger>
 
                     <SelectContent>
-                      {STAFF_AVAILABILITY.map((status) => (
+                      {staffs.map((staff) => (
                         <SelectItem
                           className="capitalize"
-                          key={status}
-                          value={status}
+                          key={staff._id}
+                          value={staff._id ?? ""}
                         >
-                          {STAFF_AVAILABILITY_LABEL[status]}
+                          {staff.name}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -160,44 +173,30 @@ export default function FormComponent({
 
           <FormField
             control={form.control}
-            name="dailyCapacity"
+            name="startTime"
             render={({ field }) => (
               <FormItem className="col-span-2">
                 <FormLabel>
-                  Daily Capacity <span className="text-red-500">*</span>
+                  Start Time <span className="text-red-500">*</span>
                 </FormLabel>
-
                 <FormControl>
-                  <Select
-                    onValueChange={(value) => field.onChange(Number(value))}
-                    defaultValue={
-                      field.value !== undefined
-                        ? String(field.value)
-                        : undefined
-                    }
+                  <Input
+                    type="datetime-local"
                     key={field.value}
+                    value={
+                      field.value
+                        ? new Date(field.value).toISOString().slice(0, 16)
+                        : ""
+                    }
+                    onChange={(e) => {
+                      const date = new Date(e.target.value);
+                      field.onChange(date.toISOString());
+                    }}
                     disabled={isLoading}
-                  >
-                    <SelectTrigger className="w-full col-span-2 capitalize">
-                      <SelectValue
-                        placeholder="Select Daily Capacity"
-                        className="w-full capitalize"
-                      />
-                    </SelectTrigger>
-
-                    <SelectContent>
-                      {SERVICE_DURATION_OPTIONS.map((item) => (
-                        <SelectItem
-                          className="capitalize"
-                          key={item.value}
-                          value={String(item.value)}
-                        >
-                          {item.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  />
                 </FormControl>
+                <FormDescription />
+                <FormMessage />
               </FormItem>
             )}
           />

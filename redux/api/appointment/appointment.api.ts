@@ -24,24 +24,28 @@ export const appointmentApi = baseApi.injectEndpoints({
       providesTags: [TAG_TYPES.APPOINTMENT],
     }),
 
-    getSingleAppointment: builder.query<{ appointment: IAppointment }, string>({
-      query: (id) => ({
-        url: `${URL}/${id}`,
+    getSingleAppointment: builder.query<
+      { appointment: IAppointment },
+      { id: string; params?: IQuery }
+    >({
+      query: (arg) => ({
+        url: URL + "/" + arg?.id,
         method: "GET",
+        params: arg?.params,
       }),
       transformResponse: (response: { data: IAppointment }) => ({
         appointment: response.data,
       }),
-      providesTags: (_result, _error, id) => [
-        { type: TAG_TYPES.APPOINTMENT, id },
+      providesTags: (_result, _error, arg) => [
+        { type: TAG_TYPES.APPOINTMENT, id: arg?.id },
       ],
     }),
 
     createAppointment: builder.mutation({
-      query: (data: Partial<IAppointment>) => ({
+      query: (arg: { data: Partial<IAppointment> }) => ({
         url: URL + "/create",
         method: "POST",
-        data,
+        data: arg.data,
       }),
 
       invalidatesTags: [
