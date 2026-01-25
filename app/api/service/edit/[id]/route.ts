@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import connectDB from "@/lib/db";
+import connectDB from "@/lib/db/db";
 import { AuthenticatedRequest, withOrgAuth } from "@/middleware/auth-guard";
 import { serviceModel } from "@/models/service/service.model";
 import { updateServiceSchema } from "@/validators/service/service.validator";

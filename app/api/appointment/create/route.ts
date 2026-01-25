@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import connectDB from "@/lib/db";
+import connectDB from "@/lib/db/db";
 import { hasTimeOverlap } from "@/lib/utils";
 import { AuthenticatedRequest, withOrgAuth } from "@/middleware/auth-guard";
 import { activityLogModel } from "@/models/activity/activity.model";

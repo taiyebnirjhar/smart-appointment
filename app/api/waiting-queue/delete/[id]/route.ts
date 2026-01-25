@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import connectDB from "@/lib/db";
+import connectDB from "@/lib/db/db";
 import { AuthenticatedRequest, withOrgAuth } from "@/middleware/auth-guard";
 import { waitingQueueModel } from "@/models/waiting-queue/waiting-queue.model";
 import { NextResponse } from "next/server";

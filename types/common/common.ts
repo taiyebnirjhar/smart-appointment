@@ -32,3 +32,31 @@ export interface IQueryFeatures {
 }
 
 export type IQuery = IQueryFeatures & { [key: string]: any };
+
+export interface TokenPayload {
+  userId: string;
+  orgId: string;
+  name: string;
+  email: string;
+  iat?: number;
+  exp?: number;
+}
+
+export interface IBase {
+  _id?: string;
+  id?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface ILoginCredentials {
+  email: string;
+  password: string;
+}
+
+export interface IRegisterCredentials {
+  name: string;
+  orgName: string;
+  email: string;
+  password: string;
+}

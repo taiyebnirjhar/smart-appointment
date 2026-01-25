@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import connectDB from "@/lib/db";
+import connectDB from "@/lib/db/db";
 import { organizationModel } from "@/models/organization/organization.model";
 import { userModel } from "@/models/user/user.model";
 import {
