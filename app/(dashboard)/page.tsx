@@ -7,10 +7,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { quickNavItems } from "@/constant/nav-list";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { HeaderBar } from "./_components/header-bar/header-bar";
-import { quickNavItems } from "./_constants/nav-list";
 
 export default function AdminDashboardPage() {
   return (

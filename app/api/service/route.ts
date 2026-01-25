@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { AuthenticatedRequest, withOrgAuth } from "@/lib/auth-guard/auth-guard";
 import connectDB from "@/lib/db/db";
 import { QueryBuilder } from "@/lib/query-builder/query-builder";
-import { AuthenticatedRequest, withOrgAuth } from "@/middleware/auth-guard";
 import { serviceModel } from "@/models/service/service.model";
 import {
   IGenericErrorResponse,

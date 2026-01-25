@@ -16,25 +16,30 @@ export interface INavList {
   }[];
 }
 
-export const AdminNavList: INavList[] = [
+export const navList: INavList[] = [
   {
     title: "Dashboard",
-    url: "/dashboard/admin",
+    url: "/",
     icon: LayoutDashboard,
   },
   {
-    title: "Verification",
-    url: "/dashboard/admin/verification",
+    title: "Staff",
+    url: "/staff",
     icon: BadgeCheck,
   },
   {
-    title: "Contact Us",
-    url: "/dashboard/admin/contact-us",
+    title: "Service",
+    url: "/service",
     icon: FileUser,
   },
   {
-    title: "Blogs",
-    url: "/dashboard/admin/blogs",
+    title: "Appointment",
+    url: "/appointment",
+    icon: Newspaper,
+  },
+  {
+    title: "Waiting List",
+    url: "/waiting-list",
     icon: Newspaper,
   },
 ];
@@ -65,3 +70,7 @@ export const quickNavItems = [
     description: "Manage blog content and publications",
   },
 ];
+
+export const PERMISSION_PATHS: string[] = navList.map((item) =>
+  item.url === "/" ? "/" : item.url.replace(/\/$/, ""),
+);

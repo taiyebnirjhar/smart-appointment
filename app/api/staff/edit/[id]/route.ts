@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { AuthenticatedRequest, withOrgAuth } from "@/lib/auth-guard/auth-guard";
 import connectDB from "@/lib/db/db";
-import { AuthenticatedRequest, withOrgAuth } from "@/middleware/auth-guard";
 import { staffModel } from "@/models/staff/staff.model";
 import { updateStaffSchema } from "@/validators/staff/staff.validator";
 import { NextResponse } from "next/server";
