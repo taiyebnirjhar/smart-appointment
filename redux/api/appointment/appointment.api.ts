@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createToastHandler } from "@/lib/onquery-toast";
 import { baseApi } from "@/redux/base-api";
 import { TAG_TYPES } from "@/redux/tag-types";
@@ -40,7 +39,7 @@ export const appointmentApi = baseApi.injectEndpoints({
 
     createAppointment: builder.mutation({
       query: (data: Partial<IAppointment>) => ({
-        url: URL,
+        url: URL + "/create",
         method: "POST",
         data,
       }),
@@ -63,7 +62,7 @@ export const appointmentApi = baseApi.injectEndpoints({
       { id: string; data: Partial<IAppointment> }
     >({
       query: (arg) => ({
-        url: `${URL}/${arg.id}`,
+        url: `${URL}/edit/${arg.id}`,
         method: "PATCH",
         data: arg.data,
       }),
@@ -99,7 +98,7 @@ export const appointmentApi = baseApi.injectEndpoints({
 
     deleteAppointment: builder.mutation({
       query: (id: string) => ({
-        url: `${URL}/${id}`,
+        url: `${URL}/delete/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: [TAG_TYPES.APPOINTMENT, TAG_TYPES.DASHBOARD],
@@ -110,8 +109,6 @@ export const appointmentApi = baseApi.injectEndpoints({
       }),
     }),
   }),
-  // @ts-ignore
-  overrideExisting: module.hot?.status() === "apply",
 });
 
 export const {

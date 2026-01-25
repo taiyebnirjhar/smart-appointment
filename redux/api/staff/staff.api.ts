@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createToastHandler } from "@/lib/onquery-toast";
 import { baseApi } from "@/redux/base-api";
 import { TAG_TYPES } from "@/redux/tag-types";
@@ -62,7 +61,7 @@ export const staffApi = baseApi.injectEndpoints({
     }),
     updateStaff: builder.mutation({
       query: (arg: { id: string; data: Partial<IStaff> }) => ({
-        url: url + "/update" + "/" + arg.id,
+        url: url + "/edit" + "/" + arg.id,
         method: "PATCH",
         data: arg.data,
       }),
@@ -111,9 +110,6 @@ export const staffApi = baseApi.injectEndpoints({
       providesTags: [TAG_TYPES.STAFF_LOAD, TAG_TYPES.STAFF],
     }),
   }),
-
-  // @ts-ignore
-  overrideExisting: module.hot?.status() === "apply",
 });
 
 export const {

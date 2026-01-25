@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 import { createToastHandler } from "@/lib/onquery-toast";
 import { baseApi } from "@/redux/base-api";
 import { TAG_TYPES } from "@/redux/tag-types";
@@ -33,7 +33,7 @@ export const waitingQueueApi = baseApi.injectEndpoints({
 
     assignStaff: builder.mutation<any, { id: string; staffId: string }>({
       query: (arg) => ({
-        url: `${url}/${arg.id}`,
+        url: `${url}/assign/${arg.id}`,
         method: "PATCH",
         data: { staffId: arg.staffId },
       }),
@@ -54,7 +54,7 @@ export const waitingQueueApi = baseApi.injectEndpoints({
 
     removeQueueItem: builder.mutation({
       query: (id: string) => ({
-        url: `${url}/${id}`,
+        url: `${url}/delete/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: [TAG_TYPES.WAITING_LIST, TAG_TYPES.DASHBOARD],
@@ -65,8 +65,6 @@ export const waitingQueueApi = baseApi.injectEndpoints({
       }),
     }),
   }),
-  // @ts-ignore
-  overrideExisting: module.hot?.status() === "apply",
 });
 
 export const {

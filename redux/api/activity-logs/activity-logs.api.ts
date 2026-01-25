@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { baseApi } from "@/redux/base-api";
 import { TAG_TYPES } from "@/redux/tag-types";
 // Assuming IActivityLog interface exists in your types
@@ -36,8 +35,6 @@ export const activityLogApi = baseApi.injectEndpoints({
       ],
     }),
   }),
-  // @ts-ignore
-  overrideExisting: module.hot?.status() === "apply",
 });
 
 // Export hooks for usage in components

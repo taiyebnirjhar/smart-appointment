@@ -68,7 +68,7 @@ export const serviceApi = baseApi.injectEndpoints({
     // 4. Update Service
     updateService: builder.mutation({
       query: (arg: { id: string; data: Partial<IService> }) => ({
-        url: `${url}/update/${arg.id}`,
+        url: `${url}/edit/${arg.id}`,
         method: "PATCH",
         data: arg.data,
       }),
@@ -97,9 +97,6 @@ export const serviceApi = baseApi.injectEndpoints({
       }),
     }),
   }),
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  overrideExisting: module.hot?.status() === "apply",
 });
 
 // Export hooks for usage in components

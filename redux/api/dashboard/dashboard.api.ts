@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { baseApi } from "@/redux/base-api";
 import { TAG_TYPES } from "@/redux/tag-types";
 import { IDashboardStats } from "@/types/api-response/api-response";
@@ -25,8 +24,6 @@ export const dashboardApi = baseApi.injectEndpoints({
       ],
     }),
   }),
-  // @ts-ignore
-  overrideExisting: module.hot?.status() === "apply",
 });
 
 export const { useGetDashboardStatsQuery } = dashboardApi;
