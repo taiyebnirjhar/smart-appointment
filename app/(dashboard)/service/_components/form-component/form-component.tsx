@@ -117,7 +117,7 @@ export default function FormComponent({
             control={form.control}
             name="durationMinutes"
             render={({ field }) => (
-              <FormItem className="col-span-2">
+              <FormItem className="col-span-1">
                 <FormLabel>
                   Duration (Minutes) <span className="text-red-500">*</span>
                 </FormLabel>
