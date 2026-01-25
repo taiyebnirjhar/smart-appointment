@@ -1,9 +1,13 @@
 import {
   BadgeCheck,
+  CalendarClock,
+  CalendarRange,
   FileUser,
+  HandPlatter,
   LayoutDashboard,
   LucideIcon,
   Newspaper,
+  UserRound,
 } from "lucide-react";
 export interface INavList {
   title: string;
@@ -25,22 +29,22 @@ export const navList: INavList[] = [
   {
     title: "Staff",
     url: "/staff",
-    icon: BadgeCheck,
+    icon: UserRound,
   },
   {
     title: "Service",
     url: "/service",
-    icon: FileUser,
+    icon: HandPlatter,
   },
   {
     title: "Appointment",
     url: "/appointment",
-    icon: Newspaper,
+    icon: CalendarRange,
   },
   {
     title: "Waiting List",
     url: "/waiting-list",
-    icon: Newspaper,
+    icon: CalendarClock,
   },
 ];
 

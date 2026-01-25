@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signIn } from "@/service/sign-in";
 import { formSchema, FormValues } from "../_schema";
+import { ILoginPayload } from "@/types/api-payload/api-payload";
 
 export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +42,7 @@ export function LoginForm() {
     setIsLoading(true);
 
     try {
-      const apiBody = {
+      const apiBody: ILoginPayload = {
         email: data.email,
         password: data.password,
       };

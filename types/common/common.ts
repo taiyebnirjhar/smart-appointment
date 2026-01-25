@@ -48,15 +48,3 @@ export interface IBase {
   createdAt?: string;
   updatedAt?: string;
 }
-
-export interface ILoginCredentials {
-  email: string;
-  password: string;
-}
-
-export interface IRegisterCredentials {
-  name: string;
-  orgName: string;
-  email: string;
-  password: string;
-}
