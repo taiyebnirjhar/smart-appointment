@@ -17,11 +17,11 @@ const activityLogSchema = new Schema(
     },
     appointmentId: {
       type: Schema.Types.ObjectId,
-      ref: "Appointment",
+      ref: "appointment",
     },
     staffId: {
       type: Schema.Types.ObjectId,
-      ref: "Staff",
+      ref: "staff",
     },
   },
   {

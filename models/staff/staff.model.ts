@@ -25,7 +25,7 @@ const staffSchema = new Schema(
     },
     orgId: {
       type: Schema.Types.ObjectId,
-      ref: "Organization",
+      ref: "organization",
       required: true,
       index: true,
     },
