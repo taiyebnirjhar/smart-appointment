@@ -1,12 +1,15 @@
 "use client";
 
 import { DataTableSkeleton } from "@/components/shared/skeletons/data-table-skeleton";
+import { Button } from "@/components/ui/button";
 import { dataTablePaginationDefaultState } from "@/constant/data-table";
 import useAuth from "@/hooks/use-auth";
 import { useGetStaffsQuery } from "@/redux/api/staff/staff.api";
 import { IStaff } from "@/types/api-response/api-response";
 import { IQuery } from "@/types/common/common";
 import { ColumnFiltersState, SortingState } from "@tanstack/react-table";
+import { Plus } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import { columns } from "../data-table/columns";
 import { DataTable } from "../data-table/data-table";
@@ -67,6 +70,14 @@ export default function StaffContainer({
             Here&apos;s a list of staff who works in your business.
           </p>
         </div>
+        <Link
+          href="/staff/create"
+          className="flex items-center space-x-2 cursor-pointer"
+        >
+          <Button className="cursor-pointer">
+            <Plus className="h-4 w-4" /> Create New Staff
+          </Button>
+        </Link>
       </div>
 
       {isLoading || isFetching ? (

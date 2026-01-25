@@ -15,12 +15,14 @@ import { DeleteAlert } from "@/components/shared/alert/delete-alert";
 import useAuth from "@/hooks/use-auth";
 import { useDeleteStaffMutation } from "@/redux/api/staff/staff.api";
 import Link from "next/link";
+import React from "react";
 
 interface DataTableRowActionsProps {
   row: any;
 }
 
 export function DataTableRowActions({ row }: DataTableRowActionsProps) {
+  const [open, setOpen] = React.useState(false);
   const [deleteStaff] = useDeleteStaffMutation();
   const { data: session } = useAuth();
 
@@ -34,25 +36,23 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
   };
 
   return (
-    <DropdownMenu>
+    <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="h-8 w-8 p-0">
           <span className="sr-only">Open menu</span>
           <MoreHorizontal className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="end" className="z-40">
         <DropdownMenuItem>
-          <Link
-            href={`/dashboard/admin/verification/details/${row.original._id}`}
-          >
-            View Details
-          </Link>
+          <Link href={`/staff/edit/${row.original._id}`}>View & Edit</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DeleteAlert onConfirm={handleDelete}>
           <DropdownMenuItem
-            onSelect={(e) => e.preventDefault()}
+            onSelect={(e) => {
+              e.preventDefault();
+            }}
             className="text-destructive"
             disabled={userId === row.original._id}
           >
