@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { generateToken, hashRefreshToken } from "@/helpers/auth";
+import { generateToken, hashRefreshToken } from "@/helpers/auth.helper";
 import connectDB from "@/lib/db/db";
 import { userModel } from "@/models/user/user.model";
 import {

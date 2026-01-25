@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { envConfig } from "@/config/env-config";
-import { extractToken } from "@/helpers/auth";
+import { extractToken } from "@/helpers/auth.helper";
 import { IGenericErrorResponse } from "@/types/common/common";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";

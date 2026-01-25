@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import connectDB from "@/lib/db/db";
-import { hasTimeOverlap } from "@/lib/utils";
+import { hasTimeOverlap } from "@/lib/utils/utils";
 import { AuthenticatedRequest, withOrgAuth } from "@/middleware/auth-guard";
 import { appointmentModel } from "@/models/appointment/appointment.model";
 import { serviceModel } from "@/models/service/service.model";

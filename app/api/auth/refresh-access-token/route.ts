@@ -5,7 +5,7 @@ import {
   generateToken,
   hashRefreshToken,
   isValidRefreshToken,
-} from "@/helpers/auth";
+} from "@/helpers/auth.helper";
 import connectDB from "@/lib/db/db";
 import { userModel } from "@/models/user/user.model";
 import {

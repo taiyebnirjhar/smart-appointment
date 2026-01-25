@@ -7,5 +7,6 @@ declare module "next-auth" {
     refreshToken: string;
     user: TokenPayload;
     accessTokenExpires?: number;
+    error?: string;
   }
 }
