@@ -1,5 +1,6 @@
 "use client";
 
+import { SERVICE_DURATION_LABEL_MAP } from "@/constant/service-duration.constant";
 import { IService } from "@/types/api-response/api-response";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
@@ -25,7 +26,10 @@ export const columns: ColumnDef<IService>[] = [
       <DataTableColumnHeader column={column} title="Duration (Minutes)" />
     ),
     cell: ({ row }) => (
-      <p className="capitalize">{row.original.durationMinutes}</p>
+      <p className="capitalize">
+        {SERVICE_DURATION_LABEL_MAP[row.original.durationMinutes] ??
+          `${row.original.durationMinutes} min`}
+      </p>
     ),
     enableSorting: false,
   },

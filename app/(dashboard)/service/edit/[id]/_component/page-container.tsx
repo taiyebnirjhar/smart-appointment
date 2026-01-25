@@ -3,37 +3,39 @@
 import FormCardHeaderWithReset from "@/components/shared/card-header-with-reset/card-header-with-reset";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-  useGetSingleStaffQuery,
-  useUpdateStaffMutation,
-} from "@/redux/api/staff/staff.api";
-import { IStaff } from "@/types/api-response/api-response";
+  useGetSingleServiceQuery,
+  useUpdateServiceMutation,
+} from "@/redux/api/service/service.api";
+import { IService } from "@/types/api-response/api-response";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { formSchema, FormValues } from "../../../_components/_schema";
 import FormComponent from "../../../_components/form-component/form-component";
 
 export default function PageContainer({ id }: { id: string }) {
+  const router = useRouter();
+
   const [isLoading, setIsLoading] = React.useState(false);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      dailyCapacity: 30,
-    },
+    defaultValues: {},
   });
 
-  const [update] = useUpdateStaffMutation();
-  const { data, isLoading: getSingleStaffLoading } = useGetSingleStaffQuery({
-    id: id,
-  });
+  const [update] = useUpdateServiceMutation();
+  const { data, isLoading: getSingleServiceLoading } = useGetSingleServiceQuery(
+    {
+      id: id,
+    },
+  );
 
   async function onSubmit(data: FormValues) {
-    const payload: Partial<IStaff> = {
+    const payload: Partial<IService> = {
       name: data.name,
-      staffType: data.staffType,
-      dailyCapacity: data.dailyCapacity,
-      availabilityStatus: data.availabilityStatus,
+      requiredStaffType: data.requiredStaffType,
+      durationMinutes: data.durationMinutes,
     };
 
     setIsLoading(true);
@@ -51,17 +53,13 @@ export default function PageContainer({ id }: { id: string }) {
   }
 
   useEffect(() => {
-    if (!data?.staff) return;
+    if (!data?.service) return;
 
-    const cp = data.staff;
+    const cp = data.service;
 
     form.setValue("name", cp.name || "");
-    form.setValue("staffType", cp.staffType || "");
-    form.setValue("dailyCapacity", cp.dailyCapacity as number);
-    form.setValue(
-      "availabilityStatus",
-      cp.availabilityStatus as "AVAILABLE" | "ON_LEAVE",
-    );
+    form.setValue("requiredStaffType", cp.requiredStaffType || "");
+    form.setValue("durationMinutes", cp.durationMinutes as number);
   }, [data, form]);
 
   return (
@@ -74,7 +72,7 @@ export default function PageContainer({ id }: { id: string }) {
         <FormComponent
           form={form}
           onSubmit={onSubmit}
-          isLoading={isLoading || getSingleStaffLoading}
+          isLoading={isLoading || getSingleServiceLoading}
         />
       </CardContent>
     </Card>
