@@ -4,7 +4,7 @@ import { TAG_TYPES } from "@/redux/tag-types";
 import { IAppointment } from "@/types/api-response/api-response";
 import { IMeta, IQuery } from "@/types/common/common";
 
-const URL = "/appointments";
+const URL = "/appointment";
 
 export const appointmentApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({

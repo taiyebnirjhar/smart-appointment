@@ -58,7 +58,16 @@ export const columns: ColumnDef<IStaff>[] = [
     ),
     cell: ({ row }) => {
       const date = row.original.createdAt;
-      return format(new Date(date), "dd-MM-yy, hh.mm a");
+      const formattedDate = format(new Date(date), "dd-MM-yy");
+      const formattedTime = format(new Date(date), "hh.mm a");
+
+      return (
+        <>
+          {formattedDate}
+          <br />
+          {formattedTime}
+        </>
+      );
     },
   },
 

@@ -5,6 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
+import StatusCell from "./data-table-status-cell";
 
 export const columns: ColumnDef<IAppointment>[] = [
   {
@@ -19,37 +20,75 @@ export const columns: ColumnDef<IAppointment>[] = [
     enableSorting: false,
   },
 
-  // {
-  //   accessorKey: "staffType",
-  //   header: ({ column }) => (
-  //     <DataTableColumnHeader column={column} title="Staff Type" />
-  //   ),
-  //   cell: ({ row }) => <p className="capitalize">{row.original.staffType}</p>,
-  //   enableSorting: false,
-  // },
+  {
+    accessorKey: "service",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Service" />
+    ),
+    cell: ({ row }) => {
+      const service = row.original.service;
 
-  // {
-  //   accessorKey: "dailyCapacity",
-  //   header: ({ column }) => (
-  //     <DataTableColumnHeader column={column} title="Daily Capacity" />
-  //   ),
-  //   cell: ({ row }) => (
-  //     <p className="line-clamp-1 capitalize max-w-[120px]">
-  //       {row.original.dailyCapacity || "N/A"}
-  //     </p>
-  //   ),
-  //   enableSorting: false,
-  // },
+      return <p className="capitalize">{service?.name || "N/A"}</p>;
+    },
+    enableSorting: false,
+  },
 
-  // {
-  //   accessorKey: "availabilityStatus",
-  //   header: ({ column }) => (
-  //     <DataTableColumnHeader column={column} title="Availability Status" />
-  //   ),
-  //   cell: ({ row }) => <AvailabilityStatusCell row={row} />,
-  //   enableSorting: false,
-  // },
+  {
+    accessorKey: "staff",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Assigned Staff" />
+    ),
+    cell: ({ row }) => {
+      const staff = row.original.staff;
+      return <p className="capitalize">{staff?.name || "N/A"}</p>;
+    },
+    enableSorting: false,
+  },
 
+  {
+    accessorKey: "status",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Status" />
+    ),
+    cell: ({ row }) => <StatusCell row={row} />,
+    enableSorting: false,
+  },
+
+  {
+    accessorKey: "startTime",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Start Time" />
+    ),
+    cell: ({ row }) => {
+      const date = row.original.startTime;
+      const formattedDate = format(new Date(date), "dd-MM-yy");
+      const formattedTime = format(new Date(date), "hh.mm a");
+      return (
+        <div>
+          <div>{formattedDate}</div>
+          <div>{formattedTime}</div>
+        </div>
+      );
+    },
+  },
+
+  {
+    accessorKey: "endTime",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="End Time" />
+    ),
+    cell: ({ row }) => {
+      const date = row.original.endTime;
+      const formattedDate = format(new Date(date), "dd-MM-yy");
+      const formattedTime = format(new Date(date), "hh.mm a");
+      return (
+        <div>
+          <div>{formattedDate}</div>
+          <div>{formattedTime}</div>
+        </div>
+      );
+    },
+  },
   {
     accessorKey: "createdAt",
     header: ({ column }) => (
@@ -57,7 +96,14 @@ export const columns: ColumnDef<IAppointment>[] = [
     ),
     cell: ({ row }) => {
       const date = row.original.createdAt;
-      return format(new Date(date), "dd-MM-yy, hh.mm a");
+      const formattedDate = format(new Date(date), "dd-MM-yy");
+      const formattedTime = format(new Date(date), "hh.mm a");
+      return (
+        <div>
+          <div>{formattedDate}</div>
+          <div>{formattedTime}</div>
+        </div>
+      );
     },
   },
 

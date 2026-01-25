@@ -7,23 +7,26 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useUpdateStaffMutation } from "@/redux/api/staff/staff.api";
-import { IStaff, StaffAvailability } from "@/types/api-response/api-response";
+import { useUpdateAppointmentMutation } from "@/redux/api/appointment/appointment.api";
+import {
+  AppointmentStatus,
+  IAppointment,
+} from "@/types/api-response/api-response";
 
 import { CircleChevronDown } from "lucide-react";
 
-export default function AvailabilityStatusCell({ row }: any) {
-  const status: StaffAvailability = row.original.availabilityStatus;
+export default function StatusCell({ row }: any) {
+  const status: AppointmentStatus = row.original.status;
   const id = row.original._id;
 
-  const [updateStaff] = useUpdateStaffMutation();
+  const [update] = useUpdateAppointmentMutation();
 
-  const handleChange = async (value: StaffAvailability) => {
-    const payload: Partial<IStaff> = {
-      availabilityStatus: value,
+  const handleChange = async (value: AppointmentStatus) => {
+    const payload: Partial<IAppointment> = {
+      status: value,
     };
 
-    await updateStaff({ id, data: payload });
+    await update({ id, data: payload });
   };
   return (
     <DropdownMenu>
@@ -35,14 +38,24 @@ export default function AvailabilityStatusCell({ row }: any) {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="w-[150px]">
-        {/* Verified */}
-        <DropdownMenuItem onClick={() => handleChange("AVAILABLE")}>
-          Available
+        <DropdownMenuItem onClick={() => handleChange("SCHEDULED")}>
+          Scheduled
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleChange("IN_PROGRESS")}>
+          In Progress
+        </DropdownMenuItem>
+
+        <DropdownMenuItem onClick={() => handleChange("COMPLETED")}>
+          Completed
+        </DropdownMenuItem>
+
+        <DropdownMenuItem onClick={() => handleChange("CANCELLED")}>
+          Cancelled
         </DropdownMenuItem>
 
         {/* Not Verified */}
-        <DropdownMenuItem onClick={() => handleChange("ON_LEAVE")}>
-          On Leave
+        <DropdownMenuItem onClick={() => handleChange("NO_SHOW")}>
+          No-Show
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
