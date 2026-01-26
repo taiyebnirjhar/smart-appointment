@@ -1,4 +1,5 @@
 export enum TAG_TYPES {
+  GLOBAL = "global",
   DASHBOARD = "dashboard",
   STAFF = "staff",
   STAFF_LOAD = "staff_load",
