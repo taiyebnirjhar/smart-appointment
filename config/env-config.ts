@@ -12,20 +12,14 @@ interface EnvConfig {
 }
 
 export const envConfig: EnvConfig = {
-  siteUrl:
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3000"
-      : process.env.SITE_BASE_URL || "",
-  backendUrl:
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3000/api"
-      : process.env.BACKEND_BASE_URL || "",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_BASE_URL || "",
+  backendUrl: process.env.NEXT_PUBLIC_BACKEND_BASE_URL || "",
   dbUrl: process.env.DB_URL || "",
   BCRYPT_SALT_ROUNDS: parseInt(process.env.BCRYPT_SALT_ROUNDS ?? "") || 10,
   jwt: {
     secret: process.env.JWT_SECRET || "",
-    accessTokenExpiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRES_IN || "15m", // e.g., "15m"
+    accessTokenExpiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRES_IN || "15m",
 
-    refreshTokenExpiresIn: process.env.JWT_REFRESH_TOKEN_EXPIRES_IN || "7d", // e.g., "7d"
+    refreshTokenExpiresIn: process.env.JWT_REFRESH_TOKEN_EXPIRES_IN || "7d",
   },
 };
