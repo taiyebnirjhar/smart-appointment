@@ -10,12 +10,10 @@ export const GET = withOrgAuth<{ id: string }>(
       const { id } = await params;
       await connectDB();
 
-      const appointment = await appointmentModel
-        .findOne({
-          _id: id,
-          orgId: req.user.orgId,
-        })
-        .populate(["serviceId", "staffId"]);
+      const appointment = await appointmentModel.findOne({
+        _id: id,
+        orgId: req.user.orgId,
+      });
 
       if (!appointment) {
         return NextResponse.json(

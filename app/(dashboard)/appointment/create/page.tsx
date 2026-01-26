@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import { WaitingListAlert } from "@/components/shared/alert/waiting-list-alert";
 import FormCardHeaderWithReset from "@/components/shared/card-header-with-reset/card-header-with-reset";
 import { Card, CardContent } from "@/components/ui/card";
 import { useCreateAppointmentMutation } from "@/redux/api/appointment/appointment.api";
@@ -18,6 +20,7 @@ export default function CreateStaffPage() {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = React.useState(false);
+  const [openQueueModal, setOpenQueueModal] = React.useState(false);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -44,13 +47,49 @@ export default function CreateStaffPage() {
       if (response?.success) {
         router.push("/appointment");
       } else {
-        console.log(response?.error?.message);
-        throw new Error(response?.error?.message || "Something went wrong.");
+        const rawMessage = response?.error?.message;
+
+        if (rawMessage) {
+          const [code, context] = rawMessage.split(",");
+
+          if (code === "DAILY_CAPACITY_EXCEEDED") {
+            setOpenQueueModal(true);
+          }
+        }
+
+        throw new Error(rawMessage || "Something went wrong.");
       }
-    } catch (error) {
-      console.log(error);
+    } catch (err: any) {
+      console.log(err);
     } finally {
       setIsLoading(false);
+    }
+  }
+
+  async function handleSentToWaitingList() {
+    const payload: Partial<IAppointment> = {
+      customerName: form.getValues("customerName"),
+      staffId: null,
+      serviceId: form.getValues("serviceId"),
+      startTime: form.getValues("startTime"),
+      status: form.getValues("status"),
+    };
+
+    try {
+      const response = await create({ data: payload }).unwrap();
+
+      if (response?.success) {
+        router.push("/waiting-list");
+      } else {
+        const rawMessage = response?.error?.message;
+
+        throw new Error(rawMessage || "Something went wrong.");
+      }
+    } catch (err: any) {
+      console.log(err);
+    } finally {
+      setIsLoading(false);
+      setOpenQueueModal(false);
     }
   }
 
@@ -80,6 +119,14 @@ export default function CreateStaffPage() {
           </CardContent>
         </Card>
       </div>
+      <WaitingListAlert
+        open={openQueueModal}
+        setOpen={setOpenQueueModal}
+        onChooseAnother={() => {
+          setOpenQueueModal(false);
+        }}
+        onAddToWaitingList={handleSentToWaitingList}
+      />
     </>
   );
 }

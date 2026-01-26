@@ -53,6 +53,7 @@ export const appointmentApi = baseApi.injectEndpoints({
         TAG_TYPES.DASHBOARD,
         TAG_TYPES.STAFF_LOAD,
         TAG_TYPES.ACTIVITY_LOG,
+        TAG_TYPES.WAITING_LIST,
       ],
       onQueryStarted: createToastHandler({
         loading: "Processing appointment...",
@@ -75,6 +76,7 @@ export const appointmentApi = baseApi.injectEndpoints({
         TAG_TYPES.DASHBOARD,
         TAG_TYPES.STAFF_LOAD,
         TAG_TYPES.ACTIVITY_LOG,
+        TAG_TYPES.WAITING_LIST,
       ],
       onQueryStarted: createToastHandler({
         loading: "Updating details...",
@@ -83,15 +85,16 @@ export const appointmentApi = baseApi.injectEndpoints({
       }),
     }),
 
-    cancelAppointment: builder.mutation<IAppointment, string>({
-      query: (id) => ({
-        url: `${URL}/cancel/${id}`,
+    cancelAppointment: builder.mutation<IAppointment, { id: string }>({
+      query: (arg) => ({
+        url: `${URL}/cancel/${arg.id}`,
         method: "PATCH",
       }),
-      invalidatesTags: (_result, _error, id) => [
-        { type: TAG_TYPES.APPOINTMENT, id },
+      invalidatesTags: (_result, _error, arg) => [
+        { type: TAG_TYPES.APPOINTMENT, id: arg.id },
         TAG_TYPES.APPOINTMENT,
         TAG_TYPES.DASHBOARD,
+        TAG_TYPES.WAITING_LIST,
       ],
       onQueryStarted: createToastHandler({
         loading: "Cancelling...",
@@ -101,8 +104,8 @@ export const appointmentApi = baseApi.injectEndpoints({
     }),
 
     deleteAppointment: builder.mutation({
-      query: (id: string) => ({
-        url: `${URL}/delete/${id}`,
+      query: (arg) => ({
+        url: `${URL}/delete/${arg.id}`,
         method: "DELETE",
       }),
       invalidatesTags: [TAG_TYPES.APPOINTMENT, TAG_TYPES.DASHBOARD],

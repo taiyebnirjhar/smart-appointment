@@ -10,6 +10,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
@@ -19,7 +20,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { SERVICE_DURATION_OPTIONS } from "@/constant/service-duration.constant";
 import {
   STAFF_AVAILABILITY,
   STAFF_AVAILABILITY_LABEL,
@@ -76,6 +76,7 @@ export default function FormComponent({
                   />
                 </FormControl>
                 <FormDescription />
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -115,6 +116,7 @@ export default function FormComponent({
                     </SelectContent>
                   </Select>
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -154,6 +156,7 @@ export default function FormComponent({
                     </SelectContent>
                   </Select>
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -166,38 +169,19 @@ export default function FormComponent({
                 <FormLabel>
                   Daily Capacity <span className="text-red-500">*</span>
                 </FormLabel>
-
                 <FormControl>
-                  <Select
-                    onValueChange={(value) => field.onChange(Number(value))}
-                    defaultValue={
-                      field.value !== undefined
-                        ? String(field.value)
-                        : undefined
-                    }
-                    key={field.value}
+                  <Input
+                    placeholder="Enter the daily capacity of the staff."
+                    type="number"
+                    min={1}
+                    max={5}
                     disabled={isLoading}
-                  >
-                    <SelectTrigger className="w-full col-span-2 capitalize">
-                      <SelectValue
-                        placeholder="Select Daily Capacity"
-                        className="w-full capitalize"
-                      />
-                    </SelectTrigger>
-
-                    <SelectContent>
-                      {SERVICE_DURATION_OPTIONS.map((item) => (
-                        <SelectItem
-                          className="capitalize"
-                          key={item.value}
-                          value={String(item.value)}
-                        >
-                          {item.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                    {...field}
+                    value={field.value ?? ""}
+                    onChange={(e) => field.onChange(Number(e.target.value))}
+                  />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />

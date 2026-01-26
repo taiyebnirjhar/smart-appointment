@@ -45,6 +45,7 @@ export default function PageContainer({ id }: { id: string }) {
         id,
         data: payload,
       });
+      router.back();
     } catch (error) {
       console.log(error);
     } finally {

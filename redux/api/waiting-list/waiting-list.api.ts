@@ -52,9 +52,9 @@ export const waitingQueueApi = baseApi.injectEndpoints({
       }),
     }),
 
-    removeQueueItem: builder.mutation({
-      query: (id: string) => ({
-        url: `${url}/delete/${id}`,
+    deleteQueueItem: builder.mutation({
+      query: (arg) => ({
+        url: `${url}/delete/${arg.id}`,
         method: "DELETE",
       }),
       invalidatesTags: [TAG_TYPES.WAITING_LIST, TAG_TYPES.DASHBOARD],
@@ -70,5 +70,5 @@ export const waitingQueueApi = baseApi.injectEndpoints({
 export const {
   useGetQueuedItemsQuery,
   useAssignStaffMutation,
-  useRemoveQueueItemMutation,
+  useDeleteQueueItemMutation,
 } = waitingQueueApi;

@@ -21,6 +21,18 @@ export const columns: ColumnDef<IService>[] = [
   },
 
   {
+    accessorKey: "requiredStaffType",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Required Staff Type" />
+    ),
+    cell: ({ row }) => (
+      <p className="line-clamp-1 capitalize max-w-[120px]">
+        {row.original.requiredStaffType || "N/A"}
+      </p>
+    ),
+    enableSorting: false,
+  },
+  {
     accessorKey: "durationMinutes",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Duration (Minutes)" />
@@ -29,19 +41,6 @@ export const columns: ColumnDef<IService>[] = [
       <p className="capitalize">
         {SERVICE_DURATION_LABEL_MAP[row.original.durationMinutes] ??
           `${row.original.durationMinutes} min`}
-      </p>
-    ),
-    enableSorting: false,
-  },
-
-  {
-    accessorKey: "requiredStaffType",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Required Staff Type" />
-    ),
-    cell: ({ row }) => (
-      <p className="line-clamp-1 capitalize max-w-[120px]">
-        {row.original.requiredStaffType || "N/A"}
       </p>
     ),
     enableSorting: false,

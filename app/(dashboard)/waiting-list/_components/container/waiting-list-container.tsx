@@ -46,6 +46,7 @@ export default function WaitingListContainer({
         limit: pagination.pageSize,
         sort,
         search: searchParams?.search || undefined,
+        populate: "service",
         ...filterObj,
       },
     },

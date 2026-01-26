@@ -14,6 +14,7 @@ export interface IGenericSuccessResponse<T = any> {
 
 export interface IGenericErrorMessage {
   path?: string | number;
+  code?: string;
   message: string;
 }
 

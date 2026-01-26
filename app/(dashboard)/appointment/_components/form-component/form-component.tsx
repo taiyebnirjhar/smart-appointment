@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import { DateTimePicker } from "@/components/shared/date-time-picker/date-time-picker";
 import { Button } from "@/components/ui/button";
 import { CardFooter } from "@/components/ui/card";
 import {
@@ -103,6 +104,7 @@ export default function FormComponent({
                 </FormLabel>
                 <FormControl>
                   <Select
+                    value={field.value ?? ""}
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                     key={field.value}
@@ -142,6 +144,7 @@ export default function FormComponent({
                 </FormLabel>
                 <FormControl>
                   <Select
+                    value={field.value ?? ""}
                     onValueChange={field.onChange}
                     defaultValue={field.value ?? ""}
                     key={field.value}
@@ -180,7 +183,11 @@ export default function FormComponent({
                   Start Time <span className="text-red-500">*</span>
                 </FormLabel>
                 <FormControl>
-                  <Input
+                  <DateTimePicker
+                    value={field.value ? new Date(field.value) : undefined}
+                    onChange={(date) => field.onChange(date.toISOString())}
+                  />
+                  {/* <Input
                     type="datetime-local"
                     key={field.value}
                     value={
@@ -193,7 +200,7 @@ export default function FormComponent({
                       field.onChange(date.toISOString());
                     }}
                     disabled={isLoading}
-                  />
+                  /> */}
                 </FormControl>
                 <FormDescription />
                 <FormMessage />

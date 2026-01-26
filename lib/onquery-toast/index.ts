@@ -9,7 +9,7 @@ interface ToastHandlerOptions {
 
 export const onQueryStartedToast = async (
   messages: ToastHandlerOptions,
-  queryFulfilled: Promise<any>
+  queryFulfilled: Promise<any>,
 ) => {
   const toastId = toast.loading(messages.loading);
   try {
@@ -19,11 +19,23 @@ export const onQueryStartedToast = async (
     if (response?.data?.success) {
       toast.success(messages.success ?? "Success");
     } else {
+      const rawMessage = response?.data?.error?.message;
+
+      if (rawMessage) {
+        const [code, context] = rawMessage.split(",");
+
+        if (code === "DAILY_CAPACITY_EXCEEDED") {
+          const finalMessage = `Daily capacity exceeded ${context}`;
+          toast.error(finalMessage);
+          return;
+        }
+      }
+
       toast.error(
         response?.data?.message ||
           response?.data?.error?.message ||
           messages.error ||
-          "Something went wrong"
+          "Something went wrong",
       );
     }
   } catch (error) {

@@ -20,6 +20,7 @@ interface DeleteAlertProps {
   title?: string;
   description?: string;
   className?: string;
+  actionName?: string;
 }
 
 export function DeleteAlert({
@@ -27,6 +28,7 @@ export function DeleteAlert({
   onConfirm,
   title = "Permanently Delete Confirmation",
   description = "Are you sure you want to permanently delete this item? This action cannot be undone.",
+  actionName = "Delete",
   className,
 }: DeleteAlertProps) {
   return (
@@ -49,7 +51,7 @@ export function DeleteAlert({
             onClick={onConfirm}
             className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
           >
-            Delete
+            {actionName}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

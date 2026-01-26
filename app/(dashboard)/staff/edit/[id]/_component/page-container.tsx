@@ -8,19 +8,20 @@ import {
 } from "@/redux/api/staff/staff.api";
 import { IStaff } from "@/types/api-response/api-response";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { formSchema, FormValues } from "../../../_components/_schema";
 import FormComponent from "../../../_components/form-component/form-component";
 
 export default function PageContainer({ id }: { id: string }) {
+  const router = useRouter();
+
   const [isLoading, setIsLoading] = React.useState(false);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      dailyCapacity: 30,
-    },
+    defaultValues: {},
   });
 
   const [update] = useUpdateStaffMutation();
@@ -43,6 +44,7 @@ export default function PageContainer({ id }: { id: string }) {
         id,
         data: payload,
       });
+      router.back();
     } catch (error) {
       console.log(error);
     } finally {

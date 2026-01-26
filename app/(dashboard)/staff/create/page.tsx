@@ -20,9 +20,7 @@ export default function CreateStaffPage() {
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      dailyCapacity: 30,
-    },
+    defaultValues: {},
   });
 
   // Use the autosave hook

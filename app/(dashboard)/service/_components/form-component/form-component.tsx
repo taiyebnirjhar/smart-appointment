@@ -70,6 +70,7 @@ export default function FormComponent({
                   />
                 </FormControl>
                 <FormDescription />
+                <FormDescription />
               </FormItem>
             )}
           />
@@ -109,6 +110,7 @@ export default function FormComponent({
                     </SelectContent>
                   </Select>
                 </FormControl>
+                <FormDescription />
               </FormItem>
             )}
           />
@@ -153,6 +155,7 @@ export default function FormComponent({
                     </SelectContent>
                   </Select>
                 </FormControl>
+                <FormDescription />
               </FormItem>
             )}
           />

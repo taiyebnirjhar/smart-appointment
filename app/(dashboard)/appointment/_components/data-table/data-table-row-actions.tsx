@@ -12,7 +12,10 @@ import {
 import { MoreHorizontal } from "lucide-react";
 
 import { DeleteAlert } from "@/components/shared/alert/delete-alert";
-import { useDeleteAppointmentMutation } from "@/redux/api/appointment/appointment.api";
+import {
+  useCancelAppointmentMutation,
+  useDeleteAppointmentMutation,
+} from "@/redux/api/appointment/appointment.api";
 import Link from "next/link";
 import React from "react";
 
@@ -23,10 +26,18 @@ interface DataTableRowActionsProps {
 export function DataTableRowActions({ row }: DataTableRowActionsProps) {
   const [open, setOpen] = React.useState(false);
   const [deleteAppointment] = useDeleteAppointmentMutation();
+  const [cancelAppointment] = useCancelAppointmentMutation();
 
   const handleDelete = async () => {
     const id = row.original._id;
     await deleteAppointment({
+      id,
+    });
+  };
+
+  const handleCancel = async () => {
+    const id = row.original._id;
+    await cancelAppointment({
       id,
     });
   };
@@ -46,6 +57,23 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
+
+        <DeleteAlert
+          title={"Cancel Appointment"}
+          description={"Are you sure you want to cancel this appointment?"}
+          actionName="Cancel"
+          onConfirm={handleCancel}
+        >
+          <DropdownMenuItem
+            onSelect={(e) => {
+              e.preventDefault();
+            }}
+            className="text-warning"
+          >
+            Cancel
+          </DropdownMenuItem>
+        </DeleteAlert>
+
         <DeleteAlert onConfirm={handleDelete}>
           <DropdownMenuItem
             onSelect={(e) => {
