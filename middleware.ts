@@ -43,6 +43,6 @@ export default async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|_next/data|_next/server-side-rendering|_next/webpack-hmr|assets|sign-in|sign-up|reset-password|forgot-password|play-ground).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|_next/data|_next/server-side-rendering|_next/webpack-hmr|assets|sign-in|register|reset-password|forgot-password|play-ground).*)",
   ],
 };

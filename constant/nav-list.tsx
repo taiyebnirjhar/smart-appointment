@@ -1,12 +1,9 @@
 import {
-  BadgeCheck,
   CalendarClock,
   CalendarRange,
-  FileUser,
   HandPlatter,
   LayoutDashboard,
   LucideIcon,
-  Newspaper,
   UserRound,
 } from "lucide-react";
 export interface INavList {
@@ -50,28 +47,28 @@ export const navList: INavList[] = [
 
 export const quickNavItems = [
   {
-    title: "Profile",
-    url: "/dashboard/admin/profile",
-    icon: LayoutDashboard,
-    description: "View profile and overview",
+    title: "Staff",
+    url: "/staff",
+    icon: UserRound,
+    description: "Manage staff",
   },
   {
-    title: "Verification",
-    url: "/dashboard/admin/verification",
-    icon: BadgeCheck,
-    description: "Manage seller and buyer verifications",
+    title: "Service",
+    url: "/service",
+    icon: HandPlatter,
+    description: "Manage services",
   },
   {
-    title: "Contact Us",
-    url: "/dashboard/admin/contact-us",
-    icon: FileUser,
-    description: "Review and respond to inquiries",
+    title: "Appointment",
+    url: "/appointment",
+    icon: CalendarRange,
+    description: "Manage appointments",
   },
   {
-    title: "Blogs",
-    url: "/dashboard/admin/blogs",
-    icon: Newspaper,
-    description: "Manage blog content and publications",
+    title: "Waiting List",
+    url: "/waiting-list",
+    icon: CalendarClock,
+    description: "Manage waiting list",
   },
 ];
 

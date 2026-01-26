@@ -42,6 +42,8 @@ next-env.d.ts
 
 # docs
 note.md
+todo.md
 
 #lock
 bun.lock
+

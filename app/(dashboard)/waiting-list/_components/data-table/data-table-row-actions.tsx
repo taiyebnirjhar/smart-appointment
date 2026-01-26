@@ -12,8 +12,10 @@ import {
 import { MoreHorizontal } from "lucide-react";
 
 import { DeleteAlert } from "@/components/shared/alert/delete-alert";
-import { useDeleteQueueItemMutation } from "@/redux/api/waiting-list/waiting-list.api";
-import Link from "next/link";
+import {
+  useAssignStaffMutation,
+  useDeleteQueueItemMutation,
+} from "@/redux/api/waiting-list/waiting-list.api";
 import React from "react";
 
 interface DataTableRowActionsProps {
@@ -23,6 +25,7 @@ interface DataTableRowActionsProps {
 export function DataTableRowActions({ row }: DataTableRowActionsProps) {
   const [open, setOpen] = React.useState(false);
   const [deleteQueueItem] = useDeleteQueueItemMutation();
+  const [assignStaff] = useAssignStaffMutation();
 
   const handleDelete = async () => {
     const id = row.original._id;
@@ -40,11 +43,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="z-40">
-        <DropdownMenuItem>
-          <Link href={`/waiting-list/edit/${row.original._id}`}>
-            View & Edit
-          </Link>
-        </DropdownMenuItem>
+        <DropdownMenuItem>Assign</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DeleteAlert onConfirm={handleDelete}>
           <DropdownMenuItem

@@ -21,7 +21,7 @@ export default function AdminDashboardPage() {
           {/* Header Section */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-foreground mb-2">
-              Welcome to Trade Makina Admin Dashboard
+              Welcome to Smart Appointment Dashboard
             </h1>
             <p className="text-muted-foreground text-lg">
               Manage the platform, monitor activities, and oversee operations
