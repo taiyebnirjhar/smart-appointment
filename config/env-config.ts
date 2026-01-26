@@ -12,8 +12,8 @@ interface EnvConfig {
 }
 
 export const envConfig: EnvConfig = {
-  siteUrl: process.env.SITE_BASE_URL || "",
-  backendUrl: process.env.BACKEND_BASE_URL || "",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_BASE_URL || "",
+  backendUrl: process.env.NEXT_PUBLIC_BACKEND_BASE_URL || "",
   dbUrl: process.env.DB_URL || "",
   BCRYPT_SALT_ROUNDS: parseInt(process.env.BCRYPT_SALT_ROUNDS ?? "") || 10,
   jwt: {

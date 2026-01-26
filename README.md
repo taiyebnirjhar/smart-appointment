@@ -85,9 +85,9 @@ NEXTAUTH_SECRET=your_random_secret
 JWT_ACCESS_TOKEN_EXPIRES_IN="1d"
 JWT_REFRESH_TOKEN_EXPIRES_IN="7d"
 BCRYPT_SALT_ROUNDS=12
-SITE_BASE_URL=http://localhost:3000
+NEXT_PUBLIC_SITE_BASE_URL=http://localhost:3000
 NEXTAUTH_URL=http://localhost:3000
-BACKEND_BASE_URL=http://localhost:3000/api
+NEXT_PUBLIC_BACKEND_BASE_URL=http://localhost:3000/api
 ```
 
 ### Installation & Development

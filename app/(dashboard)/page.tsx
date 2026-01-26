@@ -6,12 +6,14 @@ import { useGetDashboardStatsQuery } from "@/redux/api/dashboard/dashboard.api";
 import { CardTitle } from "@/components/ui/card";
 import { Activity } from "lucide-react";
 
+import { envConfig } from "@/config/env-config";
 import { ActivityLog } from "./_components/activity-log-table/activity-log";
 import { HeaderBar } from "./_components/header-bar/header-bar";
 import { StatsCards } from "./_components/stats-cards/stats-cards";
 
 export default function AdminDashboardPage() {
   const { data: stats, isLoading } = useGetDashboardStatsQuery();
+  console.log(envConfig);
 
   return (
     <>
