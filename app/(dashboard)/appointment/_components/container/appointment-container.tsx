@@ -49,6 +49,8 @@ export default function AppointmentContainer({
         limit: pagination.pageSize,
         sort,
         search: searchParams?.search || undefined,
+        from: searchParams?.from || undefined,
+        to: searchParams?.to || undefined,
         populate: "service,staff",
         ...filterObj,
       },

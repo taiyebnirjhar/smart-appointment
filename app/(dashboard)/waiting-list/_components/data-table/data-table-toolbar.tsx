@@ -22,7 +22,7 @@ export function DataTableToolbar<TData>({
   const { search, ...rest } = queryParams;
 
   const [searchKey, setSearchKey] = useState<string>(search || "");
-  const debouncedTerm = useDebounced({ string: searchKey, delay: 700 });
+  const debouncedTerm = useDebounced({ value: searchKey, delay: 700 });
 
   useEffect(() => {
     const newQuery = { ...rest };

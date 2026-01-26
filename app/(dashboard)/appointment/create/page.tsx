@@ -54,7 +54,9 @@ export default function CreateStaffPage() {
       const response = await create({ data: payload }).unwrap();
 
       if (response?.success) {
-        await deleteQueueItem({ id: queueId }).unwrap();
+        if (queueId) {
+          await deleteQueueItem({ id: queueId }).unwrap();
+        }
         router.push("/appointment");
       } else {
         const rawMessage = response?.error?.message;

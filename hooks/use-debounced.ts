@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
 
-interface IDebounced {
-  string: string;
+interface IDebounced<T> {
+  value: T;
   delay: number;
 }
 
-export const useDebounced = ({ string , delay }: IDebounced) => {
-  const [debouncedValue, setDebouncedValue] = useState<string>(string);
+export const useDebounced = <T>({ value, delay }: IDebounced<T>) => {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      setDebouncedValue(string);
+      setDebouncedValue(value);
     }, delay);
 
     return () => {
       clearTimeout(handler);
     };
-  }, [string, delay]);
+  }, [value, delay]);
 
   return debouncedValue;
 };

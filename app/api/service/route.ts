@@ -24,7 +24,7 @@ export const GET = withOrgAuth(async (req: AuthenticatedRequest) => {
       .populate()
       .paginate();
 
-    const total = await query.countTotal(serviceModel);
+    const total = await query.countTotal();
     const meta = query.getMeta(total);
 
     const data = await query.exec();

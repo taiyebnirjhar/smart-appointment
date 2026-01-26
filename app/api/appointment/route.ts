@@ -18,7 +18,7 @@ export const GET = withOrgAuth(async (req: AuthenticatedRequest) => {
     const searchParams = Object.fromEntries(new URL(req.url).searchParams);
     const searchTerm = searchParams.search as string;
 
-    let extraFilters = {};
+    const extraFilters: any = {};
 
     if (searchTerm) {
       // 1. Find matching service IDs
@@ -41,13 +41,24 @@ export const GET = withOrgAuth(async (req: AuthenticatedRequest) => {
       const staffIds = staffs.map((s) => s._id);
 
       // 3. Build the search condition
-      extraFilters = {
-        $or: [
-          { customerName: { $regex: searchTerm, $options: "i" } },
-          { serviceId: { $in: serviceIds } },
-          { staffId: { $in: staffIds } },
-        ],
-      };
+      extraFilters.$or = [
+        { customerName: { $regex: searchTerm, $options: "i" } },
+        { serviceId: { $in: serviceIds } },
+        { staffId: { $in: staffIds } },
+      ];
+    }
+
+    if (searchParams.from || searchParams.to) {
+      const dateFilter: any = {};
+      if (searchParams.from) {
+        dateFilter.$gte = searchParams.from;
+      }
+      if (searchParams.to) {
+        // If it's a date range, 'to' should include the end of that day if it's just a date.
+        // However, if we send full ISO strings (ending in T23:59:59), we don't need to adjust.
+        dateFilter.$lte = searchParams.to;
+      }
+      extraFilters.startTime = dateFilter;
     }
 
     const query = new QueryBuilder(
@@ -60,7 +71,7 @@ export const GET = withOrgAuth(async (req: AuthenticatedRequest) => {
       .populate()
       .paginate();
 
-    const total = await query.countTotal(appointmentModel);
+    const total = await query.countTotal();
     const meta = query.getMeta(total);
     const data = await query.exec();
 
