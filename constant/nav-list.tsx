@@ -1,4 +1,5 @@
 import {
+  CalendarCheck,
   CalendarClock,
   CalendarRange,
   HandPlatter,
@@ -47,28 +48,29 @@ export const navList: INavList[] = [
 
 export const quickNavItems = [
   {
-    title: "Staff",
-    url: "/staff",
-    icon: UserRound,
-    description: "Manage staff",
-  },
-  {
-    title: "Service",
-    url: "/service",
-    icon: HandPlatter,
-    description: "Manage services",
-  },
-  {
-    title: "Appointment",
+    title: "Total Appointments",
     url: "/appointment",
     icon: CalendarRange,
-    description: "Manage appointments",
+    description: "Scheduled for today",
   },
+  {
+    title: "Pending Appointments",
+    url: "/appointment?status=pending",
+    icon: CalendarClock,
+    description: "Waiting for confirmation",
+  },
+  {
+    title: "Completed Appointments",
+    url: "/appointment?status=completed",
+    icon: CalendarCheck,
+    description: "Successfully served",
+  },
+
   {
     title: "Waiting List",
     url: "/waiting-list",
     icon: CalendarClock,
-    description: "Manage waiting list",
+    description: "Customer in line",
   },
 ];
 

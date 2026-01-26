@@ -106,5 +106,5 @@ export interface IDashboardStats {
   completedToday: number;
   pendingToday: number;
   waitingQueueCount: number;
-  staffLoad: IStaffLoadSummary[];
+  recentActivities: IActivityLog[];
 }

@@ -1,3 +1,5 @@
+import "@/models/appointment/appointment.model";
+import "@/models/staff/staff.model";
 import mongoose, { Schema } from "mongoose";
 
 const activityLogSchema = new Schema(

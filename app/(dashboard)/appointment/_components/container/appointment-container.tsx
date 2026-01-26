@@ -51,6 +51,7 @@ export default function AppointmentContainer({
         search: searchParams?.search || undefined,
         from: searchParams?.from || undefined,
         to: searchParams?.to || undefined,
+        status: searchParams?.status || undefined,
         populate: "service,staff",
         ...filterObj,
       },

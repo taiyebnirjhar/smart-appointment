@@ -1,18 +1,18 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { quickNavItems } from "@/constant/nav-list";
-import { ArrowRight, CheckCircle } from "lucide-react";
-import Link from "next/link";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useGetDashboardStatsQuery } from "@/redux/api/dashboard/dashboard.api";
+
+import { CardTitle } from "@/components/ui/card";
+import { Activity } from "lucide-react";
+
+import { ActivityLog } from "./_components/activity-log-table/activity-log";
 import { HeaderBar } from "./_components/header-bar/header-bar";
+import { StatsCards } from "./_components/stats-cards/stats-cards";
 
 export default function AdminDashboardPage() {
+  const { data: stats, isLoading } = useGetDashboardStatsQuery();
+
   return (
     <>
       <HeaderBar breadcrumbs={[{ name: "Dashboard" }]} />
@@ -21,158 +21,60 @@ export default function AdminDashboardPage() {
           {/* Header Section */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-foreground mb-2">
-              Welcome to Smart Appointment Dashboard
+              Dashboard Overview
             </h1>
             <p className="text-muted-foreground text-lg">
-              Manage the platform, monitor activities, and oversee operations
+              Real-time insights into your organization&apos;s daily operations.
             </p>
           </div>
 
-          {/* Quick Navigation Section */}
           <div className="mb-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {quickNavItems.map((item, idx) => {
-                const Icon = item.icon;
-                return (
-                  <Link key={idx} href={item.url}>
-                    <Card className="h-full bg-card border-border hover:border-primary/50 transition-all duration-200 cursor-pointer hover:shadow-md gap-0 justify-between">
-                      <CardHeader className="pb-3">
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <CardTitle className="text-base text-foreground">
-                              {item.title}
-                            </CardTitle>
-                            <CardDescription className="text-xs mt-1">
-                              {item.description}
-                            </CardDescription>
-                          </div>
-                          <Icon className="w-5 h-5 text-primary ml-2 flex-shrink-0" />
-                        </div>
-                      </CardHeader>
-                      <CardContent className="pb-3">
-                        <div className="flex items-center text-primary text-sm font-medium">
-                          Access
-                          <ArrowRight className="w-4 h-4 ml-1" />
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                );
-              })}
-            </div>
+            {isLoading ? (
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                {[...Array(4)].map((_, i) => (
+                  <Skeleton
+                    key={i}
+                    className="h-46 w-full rounded-xl shadow-sm"
+                  />
+                ))}
+              </div>
+            ) : (
+              <StatsCards
+                totalAppointmentsToday={stats?.totalAppointmentsToday || 0}
+                completedToday={stats?.completedToday || 0}
+                pendingToday={stats?.pendingToday || 0}
+                waitingQueueCount={stats?.waitingQueueCount || 0}
+              />
+            )}
           </div>
 
-          {/* Info Sections */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Admin Responsibilities */}
-            <Card className="bg-card border-border">
-              <CardHeader>
-                <CardTitle className="text-lg">
-                  Admin Responsibilities
-                </CardTitle>
-                <CardDescription>
-                  Key tasks to maintain platform health
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  <li className="flex gap-3">
-                    <div className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary text-sm font-semibold flex-shrink-0">
-                      1
-                    </div>
-                    <div>
-                      <p className="font-medium text-foreground">
-                        Review Verifications
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Approve or reject pending seller and buyer verifications
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex gap-3">
-                    <div className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary text-sm font-semibold flex-shrink-0">
-                      2
-                    </div>
-                    <div>
-                      <p className="font-medium text-foreground">
-                        Monitor User Activity
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Track user behavior and identify suspicious activities
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex gap-3">
-                    <div className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary text-sm font-semibold flex-shrink-0">
-                      3
-                    </div>
-                    <div>
-                      <p className="font-medium text-foreground">
-                        Manage Content
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Create, edit, and publish blog posts and announcements
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex gap-3">
-                    <div className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary text-sm font-semibold flex-shrink-0">
-                      4
-                    </div>
-                    <div>
-                      <p className="font-medium text-foreground">
-                        Handle Support Inquiries
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Respond to user support requests and resolve issues
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
+          <div className="pt-4">
+            {isLoading ? (
+              <div className="space-y-4">
+                <Skeleton className="h-10 w-48 rounded-md" />
 
-            {/* Best Practices */}
-            <Card className="bg-card border-border">
-              <CardHeader>
-                <CardTitle className="text-lg">Admin Best Practices</CardTitle>
-                <CardDescription>
-                  Guidelines for effective platform management
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <h4 className="font-medium text-foreground flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600 dark:text-green-400" />
-                    Act Promptly on Verifications
-                  </h4>
-                  <p className="text-sm text-muted-foreground">
-                    Review verification requests within 24 hours to maintain
-                    user satisfaction.
-                  </p>
+                <div className="border rounded-xl p-1 overflow-hidden">
+                  {[...Array(6)].map((_, i) => (
+                    <Skeleton key={i} className="h-12 w-full mb-1 last:mb-0" />
+                  ))}
                 </div>
-                <div className="space-y-2">
-                  <h4 className="font-medium text-foreground flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600 dark:text-green-400" />
-                    Maintain Clear Communication
-                  </h4>
-                  <p className="text-sm text-muted-foreground">
-                    Provide detailed reasons when rejecting verifications or
-                    addressing concerns.
-                  </p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="text-2xl font-bold text-foreground mb-2 inline-flex items-center gap-2">
+                  <Activity className="h-5 w-5 text-primary" />
+                  <CardTitle className="text-lg font-bold">
+                    Recent Activities
+                  </CardTitle>
                 </div>
-                <div className="space-y-2">
-                  <h4 className="font-medium text-foreground flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600 dark:text-green-400" />
-                    Regular Content Updates
-                  </h4>
-                  <p className="text-sm text-muted-foreground">
-                    Keep blog and announcements fresh to improve user engagement
-                    and SEO.
-                  </p>
+                <div className="">
+                  <ActivityLog
+                    isLoading={isLoading}
+                    activities={stats?.recentActivities || []}
+                  />
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            )}
           </div>
         </div>
       </div>
