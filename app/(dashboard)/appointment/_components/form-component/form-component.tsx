@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/select";
 import { IService, IStaff } from "@/types/api-response/api-response";
 import { useRouter } from "next/navigation";
+import React from "react";
 import { UseFormReturn } from "react-hook-form";
 
 interface FormComponentProps {
@@ -70,6 +71,36 @@ export default function FormComponent({
   staffs = [],
 }: FormComponentProps) {
   const router = useRouter();
+
+  // Get selected service and staff values
+  const selectedServiceId = form.watch("serviceId");
+  const selectedStaffId = form.watch("staffId");
+
+  const selectedService = services.find((s) => s._id === selectedServiceId);
+  const selectedStaff = staffs.find((s) => s._id === selectedStaffId);
+
+  // Filter staff based on selected service
+  const filteredStaffs = selectedService
+    ? staffs.filter((s) => s.staffType === selectedService.requiredStaffType)
+    : staffs;
+
+  // Reset staff if it doesn't match service
+  React.useEffect(() => {
+    if (
+      selectedServiceId &&
+      selectedStaffId &&
+      selectedStaff?.staffType !== selectedService?.requiredStaffType
+    ) {
+      form.setValue("staffId", null);
+    }
+  }, [
+    selectedServiceId,
+    selectedStaffId,
+    selectedStaff,
+    selectedService,
+    form,
+  ]);
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -148,7 +179,7 @@ export default function FormComponent({
                     onValueChange={field.onChange}
                     defaultValue={field.value ?? ""}
                     key={field.value}
-                    disabled={isLoading}
+                    disabled={isLoading || !selectedServiceId}
                   >
                     <SelectTrigger className="w-full col-span-2 capitalize">
                       <SelectValue
@@ -158,7 +189,7 @@ export default function FormComponent({
                     </SelectTrigger>
 
                     <SelectContent>
-                      {staffs.map((staff) => (
+                      {filteredStaffs.map((staff) => (
                         <SelectItem
                           className="capitalize"
                           key={staff._id}
@@ -187,20 +218,6 @@ export default function FormComponent({
                     value={field.value ? new Date(field.value) : undefined}
                     onChange={(date) => field.onChange(date.toISOString())}
                   />
-                  {/* <Input
-                    type="datetime-local"
-                    key={field.value}
-                    value={
-                      field.value
-                        ? new Date(field.value).toISOString().slice(0, 16)
-                        : ""
-                    }
-                    onChange={(e) => {
-                      const date = new Date(e.target.value);
-                      field.onChange(date.toISOString());
-                    }}
-                    disabled={isLoading}
-                  /> */}
                 </FormControl>
                 <FormDescription />
                 <FormMessage />

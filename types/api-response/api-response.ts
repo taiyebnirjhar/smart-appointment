@@ -72,6 +72,7 @@ export interface IWaitingQueueItem {
   updatedAt: string;
 
   service?: IService;
+  staff?: IStaff;
 }
 
 export type ActivityAction =

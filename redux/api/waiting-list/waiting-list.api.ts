@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { createToastHandler } from "@/lib/onquery-toast";
 import { baseApi } from "@/redux/base-api";
 import { TAG_TYPES } from "@/redux/tag-types";
@@ -31,27 +29,6 @@ export const waitingQueueApi = baseApi.injectEndpoints({
       providesTags: [TAG_TYPES.WAITING_LIST],
     }),
 
-    assignStaff: builder.mutation<any, { id: string; staffId: string }>({
-      query: (arg) => ({
-        url: `${url}/assign/${arg.id}`,
-        method: "PATCH",
-        data: { staffId: arg.staffId },
-      }),
-
-      invalidatesTags: [
-        TAG_TYPES.WAITING_LIST,
-        TAG_TYPES.APPOINTMENT,
-        TAG_TYPES.DASHBOARD,
-        TAG_TYPES.STAFF_LOAD,
-        TAG_TYPES.ACTIVITY_LOG,
-      ],
-      onQueryStarted: createToastHandler({
-        loading: "Assigning staff...",
-        success: "Staff assigned successfully",
-        error: "Failed to assign staff",
-      }),
-    }),
-
     deleteQueueItem: builder.mutation({
       query: (arg) => ({
         url: `${url}/delete/${arg.id}`,
@@ -67,8 +44,5 @@ export const waitingQueueApi = baseApi.injectEndpoints({
   }),
 });
 
-export const {
-  useGetQueuedItemsQuery,
-  useAssignStaffMutation,
-  useDeleteQueueItemMutation,
-} = waitingQueueApi;
+export const { useGetQueuedItemsQuery, useDeleteQueueItemMutation } =
+  waitingQueueApi;

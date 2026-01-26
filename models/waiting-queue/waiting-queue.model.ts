@@ -1,4 +1,5 @@
 import { WAITING_QUEUE_STATUS } from "@/constant/waiting-queue-status";
+import "@/models/service/service.model";
 import mongoose, { Schema } from "mongoose";
 
 export const waitingQueueSchema = new Schema(

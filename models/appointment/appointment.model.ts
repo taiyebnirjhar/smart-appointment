@@ -1,3 +1,6 @@
+import "@/models/organization/organization.model";
+import "@/models/service/service.model";
+import "@/models/staff/staff.model";
 import mongoose, { Schema } from "mongoose";
 
 const appointmentSchema = new Schema(

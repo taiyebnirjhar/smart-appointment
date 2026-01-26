@@ -57,7 +57,7 @@ export const appointmentApi = baseApi.injectEndpoints({
       ],
       onQueryStarted: createToastHandler({
         loading: "Processing appointment...",
-        success: "Success! Check your schedule or queue.",
+        success: "Success! Check your appointment list",
         error: "Scheduling conflict occurred",
       }),
     }),

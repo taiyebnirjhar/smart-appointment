@@ -12,10 +12,8 @@ import {
 import { MoreHorizontal } from "lucide-react";
 
 import { DeleteAlert } from "@/components/shared/alert/delete-alert";
-import {
-  useAssignStaffMutation,
-  useDeleteQueueItemMutation,
-} from "@/redux/api/waiting-list/waiting-list.api";
+import { useDeleteQueueItemMutation } from "@/redux/api/waiting-list/waiting-list.api";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 interface DataTableRowActionsProps {
@@ -24,14 +22,20 @@ interface DataTableRowActionsProps {
 
 export function DataTableRowActions({ row }: DataTableRowActionsProps) {
   const [open, setOpen] = React.useState(false);
+  const router = useRouter();
   const [deleteQueueItem] = useDeleteQueueItemMutation();
-  const [assignStaff] = useAssignStaffMutation();
 
   const handleDelete = async () => {
     const id = row.original._id;
     await deleteQueueItem({
       id,
     });
+  };
+
+  const rowData = {
+    id: row.original._id,
+    serviceId: row.original.serviceId,
+    customerName: row.original.customerName,
   };
 
   return (
@@ -43,7 +47,18 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="z-40">
-        <DropdownMenuItem>Assign</DropdownMenuItem>
+        <DropdownMenuItem
+          onSelect={() => {
+            const params = new URLSearchParams({
+              queueId: rowData.id,
+              serviceId: rowData.serviceId,
+              customerName: rowData.customerName,
+            });
+            router.push(`/appointment/create?${params.toString()}`);
+          }}
+        >
+          Assign
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DeleteAlert onConfirm={handleDelete}>
           <DropdownMenuItem

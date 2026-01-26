@@ -32,6 +32,17 @@ export const columns: ColumnDef<IWaitingQueueItem>[] = [
     enableSorting: false,
   },
   {
+    accessorKey: "startTime",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Requested Date" />
+    ),
+    cell: ({ row }) => {
+      const date = row.original.startTime;
+      return format(new Date(date), "dd-MM-yy, hh.mm a");
+    },
+    enableSorting: false,
+  },
+  {
     accessorKey: "status",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Status" />

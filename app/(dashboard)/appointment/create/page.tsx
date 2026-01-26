@@ -7,9 +7,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useCreateAppointmentMutation } from "@/redux/api/appointment/appointment.api";
 import { useGetServicesQuery } from "@/redux/api/service/service.api";
 import { useGetStaffsQuery } from "@/redux/api/staff/staff.api";
+import { useDeleteQueueItemMutation } from "@/redux/api/waiting-list/waiting-list.api";
 import { IAppointment } from "@/types/api-response/api-response";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { HeaderBar } from "../../_components/header-bar/header-bar";
@@ -18,16 +19,24 @@ import FormComponent from "../_components/form-component/form-component";
 
 export default function CreateStaffPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const customerName = searchParams.get("customerName");
+  const serviceId = searchParams.get("serviceId");
+  const queueId = searchParams.get("queueId");
 
   const [isLoading, setIsLoading] = React.useState(false);
   const [openQueueModal, setOpenQueueModal] = React.useState(false);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: {},
+    defaultValues: {
+      customerName: customerName || "",
+      serviceId: serviceId || "",
+    },
   });
 
   const [create] = useCreateAppointmentMutation();
+  const [deleteQueueItem] = useDeleteQueueItemMutation();
   const { data: servicesData } = useGetServicesQuery({});
   const { data: staffsData } = useGetStaffsQuery({});
 
@@ -45,6 +54,7 @@ export default function CreateStaffPage() {
       const response = await create({ data: payload }).unwrap();
 
       if (response?.success) {
+        await deleteQueueItem({ id: queueId }).unwrap();
         router.push("/appointment");
       } else {
         const rawMessage = response?.error?.message;

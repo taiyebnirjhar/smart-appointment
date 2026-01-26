@@ -60,11 +60,11 @@ export default function FormComponent({
             render={({ field }) => (
               <FormItem className="col-span-2">
                 <FormLabel>
-                  Name <span className="text-red-500">*</span>
+                  Service Name <span className="text-red-500">*</span>
                 </FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Enter the name of the staff."
+                    placeholder="Enter the name of the service."
                     disabled={isLoading}
                     {...field}
                   />
@@ -81,7 +81,7 @@ export default function FormComponent({
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  Required Staff Type <span className="text-red-500">*</span>
+                  Needed Stuff <span className="text-red-500">*</span>
                 </FormLabel>
                 <FormControl>
                   <Select
@@ -92,7 +92,7 @@ export default function FormComponent({
                   >
                     <SelectTrigger className="w-full col-span-2 capitalize">
                       <SelectValue
-                        placeholder="Select Staff Type"
+                        placeholder="Select Needed Stuff"
                         className="w-full capitalize"
                       />
                     </SelectTrigger>
@@ -137,7 +137,7 @@ export default function FormComponent({
                   >
                     <SelectTrigger className="w-full col-span-2 capitalize">
                       <SelectValue
-                        placeholder="Select Daily Capacity"
+                        placeholder="Select Duration"
                         className="w-full capitalize"
                       />
                     </SelectTrigger>

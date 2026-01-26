@@ -37,15 +37,15 @@ export function DataTableToolbar<TData>({
   }, [debouncedTerm]);
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between gap-3">
       {/* Left Section */}
       <div className="flex flex-1 items-center space-x-2">
         {/* Search */}
         <Input
-          placeholder="Search..."
+          placeholder="Search staff by name, staff type."
           defaultValue={search}
           onChange={(e) => setSearchKey(e.target.value)}
-          className="h-8 w-[150px] lg:w-[250px] text-sm md:text-base"
+          className="h-8 w-full text-sm "
         />
       </div>
 

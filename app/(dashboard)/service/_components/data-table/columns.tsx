@@ -11,7 +11,7 @@ export const columns: ColumnDef<IService>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Name" />
+      <DataTableColumnHeader column={column} title="Service Name" />
     ),
     cell: ({ row }) => {
       const name = row.original.name;
@@ -23,7 +23,7 @@ export const columns: ColumnDef<IService>[] = [
   {
     accessorKey: "requiredStaffType",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Required Staff Type" />
+      <DataTableColumnHeader column={column} title="Needed Stuff" />
     ),
     cell: ({ row }) => (
       <p className="line-clamp-1 capitalize max-w-[120px]">
