@@ -101,7 +101,7 @@ export const authOptions: AuthOptions = {
   secret: envConfig.jwt.secret,
   session: {
     strategy: "jwt",
-    maxAge: Number(envConfig.jwt.accessTokenExpiresIn) || 0,
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
 };
 

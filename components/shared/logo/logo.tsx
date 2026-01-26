@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils/utils";
 
 interface ILogoProps {
@@ -5,6 +7,14 @@ interface ILogoProps {
   textClassName?: string;
   showName?: boolean;
 }
+const name = "Smart Appointment";
+
+const initials = name
+  .split(" ")
+  .filter(Boolean)
+  .slice(0, 2)
+  .map((word: any) => word[0]?.toUpperCase())
+  .join("");
 
 export default function Logo({
   containerClassName,
@@ -18,9 +28,14 @@ export default function Logo({
         containerClassName,
       )}
     >
-      {showName && (
-        <h1 className={cn("font-bold", textClassName)}>Smart Appointment</h1>
-      )}
+      <Avatar className="h-8 w-8 rounded-lg border-2 border-border">
+        <AvatarImage src={""} alt={name} />
+        <AvatarFallback className="rounded-lg text-sm font-medium">
+          {initials}
+        </AvatarFallback>
+      </Avatar>
+
+      {showName && <h1 className={cn("font-bold", textClassName)}>{name}</h1>}
     </div>
   );
 }

@@ -9,3 +9,7 @@ export const SERVICE_DURATION_OPTIONS = SERVICE_DURATIONS.map((minutes) => ({
       ? `${minutes} min`
       : `${minutes / 60} hr${minutes % 60 ? ` ${minutes % 60} min` : ""}`,
 }));
+
+export const SERVICE_DURATION_LABEL_MAP = Object.fromEntries(
+  SERVICE_DURATION_OPTIONS.map((item) => [item.value, item.label]),
+) as Record<number, string>;

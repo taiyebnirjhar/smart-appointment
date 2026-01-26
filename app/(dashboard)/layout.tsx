@@ -1,8 +1,8 @@
 "use client";
 
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { navList } from "@/constant/nav-list";
 import { AppSidebar } from "./_components/app-sidebar/app-sidebar";
-import { AdminNavList } from "./_constants/nav-list";
 
 export default function AppLayout({
   children,
@@ -11,7 +11,7 @@ export default function AppLayout({
 }>) {
   return (
     <SidebarProvider>
-      <AppSidebar navList={AdminNavList} />
+      <AppSidebar navList={navList} />
       <SidebarInset>{children}</SidebarInset>
     </SidebarProvider>
   );

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { AuthenticatedRequest, withOrgAuth } from "@/lib/auth-guard/auth-guard";
 import connectDB from "@/lib/db/db";
-import { AuthenticatedRequest, withOrgAuth } from "@/middleware/auth-guard";
 import { appointmentModel } from "@/models/appointment/appointment.model";
 import { NextResponse } from "next/server";
 
@@ -10,12 +10,10 @@ export const GET = withOrgAuth<{ id: string }>(
       const { id } = await params;
       await connectDB();
 
-      const appointment = await appointmentModel
-        .findOne({
-          _id: id,
-          orgId: req.user.orgId,
-        })
-        .populate(["serviceId", "staffId"]);
+      const appointment = await appointmentModel.findOne({
+        _id: id,
+        orgId: req.user.orgId,
+      });
 
       if (!appointment) {
         return NextResponse.json(

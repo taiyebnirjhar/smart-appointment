@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { AuthenticatedRequest, withOrgAuth } from "@/lib/auth-guard/auth-guard";
 import connectDB from "@/lib/db/db";
 import { QueryBuilder } from "@/lib/query-builder/query-builder";
-import { AuthenticatedRequest, withOrgAuth } from "@/middleware/auth-guard";
 import { activityLogModel } from "@/models/activity/activity.model";
 
 import {
@@ -25,7 +25,7 @@ export const GET = withOrgAuth(async (req: AuthenticatedRequest) => {
       .populate()
       .paginate();
 
-    const total = await query.countTotal(activityLogModel);
+    const total = await query.countTotal();
     const meta = query.getMeta(total);
 
     const data = await query.exec();

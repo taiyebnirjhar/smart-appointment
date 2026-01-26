@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IQuery } from "@/types/common/common";
-import { Model, Query } from "mongoose";
+import { Query } from "mongoose";
 
 export class QueryBuilder<T> {
   private page = 1;
@@ -22,7 +21,16 @@ export class QueryBuilder<T> {
   }
 
   filter() {
-    const excluded = ["page", "limit", "sort", "fields", "search", "populate"];
+    const excluded = [
+      "page",
+      "limit",
+      "sort",
+      "fields",
+      "search",
+      "populate",
+      "from",
+      "to",
+    ];
     const filters = { ...this.query };
 
     excluded.forEach((key) => delete filters[key]);
@@ -69,7 +77,7 @@ export class QueryBuilder<T> {
     return this;
   }
 
-  async countTotal(model: Model<any>) {
+  async countTotal() {
     const clonedQuery = this.modelQuery.model.find(this.modelQuery.getFilter());
 
     const total = await clonedQuery.countDocuments();

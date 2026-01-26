@@ -53,6 +53,9 @@ export interface IAppointment {
   status: AppointmentStatus;
   createdAt: string;
   updatedAt: string;
+
+  service?: IService;
+  staff?: IStaff;
 }
 
 export type WaitingQueueStatus = (typeof WAITING_QUEUE_STATUS)[number];
@@ -67,6 +70,9 @@ export interface IWaitingQueueItem {
   status: WaitingQueueStatus;
   createdAt: string;
   updatedAt: string;
+
+  service?: IService;
+  staff?: IStaff;
 }
 
 export type ActivityAction =
@@ -100,5 +106,5 @@ export interface IDashboardStats {
   completedToday: number;
   pendingToday: number;
   waitingQueueCount: number;
-  staffLoad: IStaffLoadSummary[];
+  recentActivities: IActivityLog[];
 }

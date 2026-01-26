@@ -49,6 +49,7 @@ axiosInstance.interceptors.response.use(
     };
     return responseObject;
   },
+
   async function (error) {
     const responseObject: IGenericErrorResponse = {
       error: {

@@ -14,6 +14,7 @@ export interface IGenericSuccessResponse<T = any> {
 
 export interface IGenericErrorMessage {
   path?: string | number;
+  code?: string;
   message: string;
 }
 
@@ -47,16 +48,4 @@ export interface IBase {
   id?: string;
   createdAt?: string;
   updatedAt?: string;
-}
-
-export interface ILoginCredentials {
-  email: string;
-  password: string;
-}
-
-export interface IRegisterCredentials {
-  name: string;
-  orgName: string;
-  email: string;
-  password: string;
 }

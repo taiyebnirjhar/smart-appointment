@@ -9,7 +9,8 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { INavList } from "../../_constants/nav-list";
+
+import { INavList } from "@/constant/nav-list";
 import { DashboardLogo } from "../dashboard-logo/dashboard-logo";
 import { NavMain } from "../nav-main/nav-main";
 import { NavUser } from "../nav-user/nav-user";

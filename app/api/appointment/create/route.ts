@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { AuthenticatedRequest, withOrgAuth } from "@/lib/auth-guard/auth-guard";
 import connectDB from "@/lib/db/db";
 import { hasTimeOverlap } from "@/lib/utils/utils";
-import { AuthenticatedRequest, withOrgAuth } from "@/middleware/auth-guard";
 import { activityLogModel } from "@/models/activity/activity.model";
 import { appointmentModel } from "@/models/appointment/appointment.model";
 import { serviceModel } from "@/models/service/service.model";
@@ -47,10 +47,10 @@ export const POST = withOrgAuth(async (req: AuthenticatedRequest) => {
           {
             success: false,
             error: {
-              message: `${staff.name} has reached daily capacity. (${count}/${staff.dailyCapacity})`,
+              message: `DAILY_CAPACITY_EXCEEDED,(${count}/${staff.dailyCapacity})`,
             },
           },
-          { status: 400 },
+          { status: 409 },
         );
       }
       // 2. Check Time Conflict
@@ -64,12 +64,11 @@ export const POST = withOrgAuth(async (req: AuthenticatedRequest) => {
       );
 
       if (conflict) {
-        const formatTime = (iso: string) => iso.split("T")[1].substring(0, 5);
         return NextResponse.json(
           {
             success: false,
             error: {
-              message: `${staff.name} is already booked from ${formatTime(conflict.startTime)} to ${formatTime(conflict.endTime)}. Please choose another time.`,
+              message: `${staff.name} is already booked at requested time. Please choose another time.`,
             },
           },
           { status: 400 },

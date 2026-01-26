@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { AuthenticatedRequest, withOrgAuth } from "@/lib/auth-guard/auth-guard";
 import connectDB from "@/lib/db/db";
 import { QueryBuilder } from "@/lib/query-builder/query-builder";
-import { AuthenticatedRequest, withOrgAuth } from "@/middleware/auth-guard";
 import { staffModel } from "@/models/staff/staff.model";
 import {
   IGenericErrorResponse,
@@ -24,7 +24,7 @@ export const GET = withOrgAuth(async (req: AuthenticatedRequest) => {
       .populate()
       .paginate();
 
-    const total = await query.countTotal(staffModel);
+    const total = await query.countTotal();
     const meta = query.getMeta(total);
 
     const data = await query.exec();

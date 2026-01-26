@@ -1,3 +1,5 @@
+import "@/models/appointment/appointment.model";
+import "@/models/staff/staff.model";
 import mongoose, { Schema } from "mongoose";
 
 const activityLogSchema = new Schema(
@@ -17,11 +19,11 @@ const activityLogSchema = new Schema(
     },
     appointmentId: {
       type: Schema.Types.ObjectId,
-      ref: "Appointment",
+      ref: "appointment",
     },
     staffId: {
       type: Schema.Types.ObjectId,
-      ref: "Staff",
+      ref: "staff",
     },
   },
   {
