@@ -15,11 +15,11 @@ export const envConfig: EnvConfig = {
   siteUrl:
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000"
-      : process.env.SITE_BASE_URL || "http://localhost:3000",
+      : process.env.SITE_BASE_URL || "",
   backendUrl:
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000/api"
-      : process.env.BACKEND_BASE_URL || "http://localhost:3000/api",
+      : process.env.BACKEND_BASE_URL || "",
   dbUrl: process.env.DB_URL || "",
   BCRYPT_SALT_ROUNDS: parseInt(process.env.BCRYPT_SALT_ROUNDS ?? "") || 10,
   jwt: {
