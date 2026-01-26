@@ -19,7 +19,7 @@ export function DashboardLogo() {
           onClick={() => router.push("/")}
         >
           <Logo
-            containerClassName="flex items-center justify-start text-lg leading-tight w-full  "
+            containerClassName="flex items-center justify-start text-base leading-tight w-full  "
             textClassName="truncate font-medium"
           />
         </SidebarMenuButton>
