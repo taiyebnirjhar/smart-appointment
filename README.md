@@ -4,7 +4,7 @@ A comprehensive web application designed to streamline service appointments, man
 
 ## 🚀 Live Demo
 
-**Live URL:** _[Insert Deployment Link Here]_
+**Live URL:**  https://smart-appointment-official.vercel.app/ 
 
 ### Demo Account
 
