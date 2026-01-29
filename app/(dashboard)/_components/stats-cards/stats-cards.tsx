@@ -12,7 +12,8 @@ import {
   ArrowRight,
   CalendarCheck,
   CalendarClock,
-  CalendarRange,
+  CalendarDays,
+  Users,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -29,40 +30,69 @@ export function StatsCards({
   pendingToday,
   waitingQueueCount,
 }: StatsCardsProps) {
+  // const stats = [
+  //   {
+  //     title: "Total Today",
+  //     value: totalAppointmentsToday,
+  //     url: "/appointment",
+  //     icon: CalendarRange,
+  //     description: "Scheduled for today",
+  //   },
+  //   {
+  //     title: "Pending Today",
+  //     value: pendingToday,
+  //     url: "/appointment",
+  //     icon: CalendarClock,
+  //     description: "Waiting for confirmation",
+  //   },
+  //   {
+  //     title: "Completed Today",
+  //     value: completedToday,
+  //     url: "/appointment",
+  //     icon: CalendarCheck,
+  //     description: "Successfully served",
+  //   },
+
+  //   {
+  //     title: "Waiting List",
+  //     value: waitingQueueCount,
+  //     url: "/waiting-list",
+  //     icon: CalendarClock,
+  //     description: "Customer in line",
+  //   },
+  // ];
   const stats = [
     {
-      title: "Total",
+      title: "Today's Schedule",
       value: totalAppointmentsToday,
       url: "/appointment",
-      icon: CalendarRange,
-      description: "Scheduled for today",
+      icon: CalendarDays,
+      description: "Total bookings for today",
     },
     {
-      title: "Pending ",
+      title: "Pending Service",
       value: pendingToday,
       url: "/appointment",
       icon: CalendarClock,
-      description: "Waiting for confirmation",
+      description: "Awaiting today's arrival",
     },
     {
-      title: "Completed ",
+      title: "Today's Served",
       value: completedToday,
       url: "/appointment",
       icon: CalendarCheck,
-      description: "Successfully served",
+      description: "Successfully completed today",
     },
-
     {
-      title: "Waiting List",
+      title: "Active Queue",
       value: waitingQueueCount,
       url: "/waiting-list",
-      icon: CalendarClock,
-      description: "Customer in line",
+      icon: Users, // Changed to Users to show physical presence
+      description: "Customers currently in line",
     },
   ];
-
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
       {stats.map((item, idx) => {
         const Icon = item.icon;
         return (
